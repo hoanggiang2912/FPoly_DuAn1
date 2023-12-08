@@ -49,9 +49,9 @@ if (isset($_POST['submit'])) {
     <div class="top">
         <i class="fas fa-angle-left sidebar-toggle"></i>
         <div class="search-box">
-            <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
+            <form style="width: 100%;display:flex; justify-content: center;" action="?mod=admin&act=products-search" method="post">
                 <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm...">
+                <input type="text" placeholder="Tìm kiếm..." name="keyword">
             </form>
         </div>
         <div class="info-user">
@@ -191,26 +191,27 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     <!----======== End Header DashBoard ======== -->
-
+    <div class="flex-column p30 g30" style="align-self: stretch; align-items: flex-start;">
+        <div class="text">
+            <h1 class="label-large-prominent" style="font-size: 24px;
+              line-height: 32px;">Chi Tiết Sản Phẩm</h1>
+        </div>
+        <!--DateTimelocal-->
+        <div class="flex-between width-full" style="gap: 8px;
+            align-items: center;">
+            <div class="flex g8">
+                <span class="label-large">Admin /</span><a href="?mod=admin&act=products-detail&id=<?=$productdetail['id']?>" class="label-large"
+                    style="text-decoration: none;">Chi Tiết Sản Phẩm</a>
+            </div>
+            <!-- <div class="flex-center g8">
+            <span><i class="fa-solid fa-calendar-days"></i></span>
+            <input class="label-large-prominent" type="datetime-local" style="color: #625B71; border: none; font-size: 16px;
+                ">
+          </div> -->
+        </div>
+    </div>
     <!----======== Body DashBoard ======== -->
     <div class="containerAdmin_order-detail p30">
-        <div class="localDashboard">
-            <div class="col-12 d-flex">
-                <div class="col-6">
-                    <div class="col-12">
-                        <h2>Chi tiết sản phẩm</h2>
-                    </div>
-                    <div class="col-12">
-                        <span class="label-large">Admin /</span><a href="#" class="label-large"
-                            style="text-decoration: none;">Sản Phẩm</a>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="sliderDashboard_order-add-create sliderDashboard_order-detail rounded-4">
             <?php if (isset($_SESSION['thongbao'])) : ?>
             <div class="alert alert-success" role="alert"><?= $_SESSION['thongbao'] ?></div>
@@ -292,21 +293,15 @@ if (isset($_POST['submit'])) {
 
                             </div>
                             <div style="width: 100%;" id="deleteButtonImg" class="button_delete_img row">
-                                <div class="col-8"></div>
-                                <div class="col-4 d-flex justify-content-between g12">
-                                    <form action="">
-
-                                        <button type="button" style="background-color:#6750a4; color:#fff;"
-                                            class="btn p12">Cập nhật</button>
-                                    </form>
-                                    <button type="button" id="deleteButtonAll p12" class="btn btn-danger">Xóa</button>
-                                    <button type="button" class="btn box-shadow1 p12">Hủy</button>
+                                <div class="col-4"></div>
+                                <div class="col-8 d-flex flex-end">
+                                    <input name="btn_update" value="Cập Nhật" type="submit"
+                                        class="btn btn-primary "></input>
+                                    <input name="btn_cancelled" type="submit" value="Thoát" class="btn_cancelled">
                                 </div>
                             </div>
                         </div>
-                        <div class="">
-                            <span class="flex"></span>
-                        </div>
+                       
                     </div>
                 </div>
             </form>
