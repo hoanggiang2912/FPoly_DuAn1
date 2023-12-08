@@ -6,7 +6,7 @@
 }
 
 .summary__main {
-  border: .2rem solid $neutral90;
+  // border: .2rem solid $neutral90;
   .summary__product {
     &__name {
       width: 30rem;
@@ -17,47 +17,6 @@
       text-overflow: ellipsis;
       word-break: break-word;
     }
-  }
-  .quality {
-    display: flex;
-    gap: 23px;
-
-    input {
-      border: 1px solid $light-on-surface-variant;
-    }
-
-    #amount {
-      width: 40px;
-      text-align: center;
-      color: $-source-seed;
-      border-radius: 20px;
-      outline: none;
-    }
-
-    button {
-      width: 25px;
-      height: 25px;
-      outline: none;
-      background: none;
-      border-radius: 8px;
-
-      &:hover {
-        background-color: #ececec;
-      }
-    }
-    
-  }
-
-  .priceProduct {
-    span {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 32px;
-    }
-  }
-
-  .btn-close {
-    margin-right: 20px;
   }
 
   .coupon__form {
@@ -75,6 +34,7 @@
   right: 0;
   left: 0;
   bottom: 0;
+  z-index: 1000000;
   &__inner {
     background: $-white;
   }

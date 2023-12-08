@@ -23,8 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         extract($checkoutProduct);
         $subTotal = $price * $qty;
         $tax = $subTotal * 0.1;
+        /** update product quantity */
         $productQty = getProductQtyById($id_product);
         $newQty = $productQty - $qty;
+
+        /** update product purchases */
+        $purchases = rand(10, 100);
         
         $shipping = getShippingMethodByPrice($id_shipping)['price'];
         
@@ -43,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             insertCartWithIdBill($idBill, $id_user, $id_product, $name, $price, $img, $qty, $subTotal);
             /** update số lượng của sản phẩm vừa mua */
             updateProductQty($id_product, $newQty);
+
+            /** update product purchases */
+            updateProductPurchases($id_product, $purchases);
 
             if (isset($_SESSION['checkoutProduct'])) {
                 unset($_SESSION['checkoutProduct']);
@@ -63,6 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             /** update số lượng của sản phẩm vừa mua */
             updateProductQty($id_product, $newQty);
+
+            /** update product purchases */
+            updateProductPurchases($id_product, $purchases);
             
             unset($_SESSION['checkoutProduct']);
             // header("Location: ?mod=cart&act=confirm"); 

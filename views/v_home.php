@@ -120,7 +120,7 @@ $(document).ready(function () {
             <div class="product__info flex-between width-full">
                 <div class="product__info__view title-large">$views views</div>
                 <div class="product__info__rated flex g6 v-center body-medium">
-                    4.4 <i class="fa fa-star start"></i>
+                    $purchases lượt mua
                 </div>
             </div>
         </div>
@@ -242,7 +242,7 @@ $(document).ready(function () {
                         <div class="product__info flex-between width-full">
                             <div class="product__info__view body-medium">$views views</div>
                             <div class="product__info__rated flex g6 v-center body-medium">
-                                4.4 <i class="fa fa-star start"></i>
+                                $purchases lượt mua
                             </div>
                         </div>
                     </div>
@@ -380,7 +380,7 @@ $(document).ready(function () {
                             <div class="product__info flex-between width-full">
                                 <div class="product__info__view body-medium">$views views</div>
                                 <div class="product__info__rated flex g6 v-center body-medium">
-                                    4.4 <i class="fa fa-star start"></i>
+                                    $purchases lượt mua
                                 </div>
                             </div>
                         </div>
@@ -499,7 +499,7 @@ $(document).ready(function () {
                             <div class="product__info flex-between width-full">
                                 <div class="product__info__view body-medium"><?= formatViewsNumber($specialProduct['views']) ?> views</div>
                                 <div class="product__info__rated flex g6 v-center body-medium">
-                                    4.4 <i class="fa fa-star start"></i>
+                                    <?= $specialProduct['purchases'] ?> lượt mua
                                 </div>
                             </div>
                         </div>

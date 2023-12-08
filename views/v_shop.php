@@ -61,7 +61,7 @@ $paginationHtml = '';
 for($i = 1; $i <= $totalPages; $i++) {
     $linkToPage = "?mod=page&act=shop&page=$i";
     $active = '';
-    if ($_GET['page'] == $i) {
+    if ($page == $i) {
         $active = 'active';
     }
     $paginationHtml .=
@@ -166,6 +166,8 @@ foreach ($products as $item) {
             HTML;
     }
 
+    $views = formatViewsNumber($views);
+
     $productHtml .=
         <<<HTML
             <!-- single product start -->
@@ -182,14 +184,14 @@ foreach ($products as $item) {
                     $priceView
                 </a>
                 <div class="product__info flex-between width-full">
-                    <div class="product__info__view body-medium">1,2m+ views</div>
+                    <div class="product__info__view body-medium">$views views</div>
                     <div class="product__info__rated flex g6 v-center body-medium">
-                        4.4 <i class="fa fa-star start"></i>
+                        $purchases lượt mua
                     </div>
                 </div>
             </div>
             <!-- single product end -->
-        HTML;
+HTML;
 }
 
 /** category rendering */
@@ -360,7 +362,7 @@ foreach($featureCategories as $item) {
         <ul class="filter-toggle__list desktop flex g20 flex-full">
             <!-- filter toggle list item here -->
         </ul>
-        <ul class="filter-toggle__list--mobile tablet-mobile flex g12 flex-full"></ul>
+        <!-- <ul class="filter-toggle__list--mobile tablet-mobile flex g12 flex-full"></ul> -->
         <ul class="filter__list open flex g12 flex-full j-end">
             <!-- price filter start -->
             <li class="filter__list__item por">
@@ -463,7 +465,7 @@ foreach($featureCategories as $item) {
             <!-- date filter end -->
         </ul>
     </div>
-    <div class="filter-toggle__list--mobile mobile flex g20 flex-full"></div>
+    <div class="filter-toggle__list--mobile mobile flex g20 flex-full" style="display: flex !important; margin-top: 1.2rem"></div>
     <div class="product__wrapper product__wrapper--without-carousel auto-grid g20 mt30">
         <?= $productHtml ?>
     </div>

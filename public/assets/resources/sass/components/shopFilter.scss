@@ -1,6 +1,13 @@
 .filter-bar--respon {
     display: none !important;
 }
+.filter-toggle__list--mobile {
+    flex-wrap: wrap !important;
+    .filter-toggle__list-item {
+        flex-shrink: 0;
+        width: fit-content;
+    }
+}
 .filter__list {
     display: none !important;
     &__item {

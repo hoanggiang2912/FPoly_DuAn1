@@ -49,4 +49,12 @@
     function reported($id, $value) {
         pdo_execute("UPDATE comment SET reported = {$value} WHERE id = {$id}");
     }
+
+    function delete_blogComment_byIduser($id_user) {
+        pdo_execute("DELETE From blog_comment where id_user = {$id_user}");
+    }
+
+    function delete_comments_byIduser($id_user) {
+        pdo_execute("DELETE From comment where id_user = {$id_user}");
+    }
 ?>

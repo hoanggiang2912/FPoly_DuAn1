@@ -180,6 +180,10 @@ function deleteUser($id)
 {
     pdo_execute("DELETE FROM user WHERE id = {$id}");
 }
+function delete_acccount($id_user)
+{
+    pdo_execute("DELETE FROM user WHERE id = {$id_user}");
+}
 
 
 #Sort User

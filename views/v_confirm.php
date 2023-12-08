@@ -1,6 +1,8 @@
 <?php
     ob_start();
     
+    $summaryProductHtml = '';
+
     if (isset($_SESSION['idBill'])) {
         $idBill = $_SESSION['idBill'];
 
@@ -20,7 +22,7 @@
         $estimatedDeliveryDate = date('d-m-Y', $estimatedDeliveryTimestamp);
         
         $billInfoHtml = '';
-        if ($billInfo['address_recipient'] !== '') {
+        if ($billInfo['phone_recipient'] != 1) {
             $billInfoHtml = 
                 <<<HTML
                     <div class="col-12 width-full flex mb20 recipientOrderUser">
@@ -65,6 +67,40 @@
 
         $cart = getCartByIdBill($idBill);
 
+        // print_r($cart);
+        // print_r($idBill);
+
+        /** render summary product and calculate */
+        foreach ($cart as $item) {
+            extract($item);
+            $formatedPrice = formatVND($price);
+            
+            $imgPath = constant('PRODUCT_PATH') . $img;
+
+            $categoryName = getCategoryById(getIdCategoryByIdProducts($id_product))['name'];
+            
+            $summaryProductHtml .=
+                <<<HTML
+                    <div class="listProductCart_item flex">
+                        <div class="col-6 width-full">
+                            <div class="col-12 width-full flex">
+                                <div class="col-4 width-full">
+                                    <img src="$imgPath" alt="">
+                                </div>
+                                <div class="col-8 width-full row">
+                                    <div class="col-12 width-full cart-item-name">$name</div>
+                                    <div class="col-12 width-full flex a-end">Danh mục: <span>$categoryName</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 width-full row j-end">
+                            <div class="col-12 width-full flex j-end">$formatedPrice</div>
+                            <div class="col-12 width-full flex j-end a-end">X $qty</div>
+                        </div>
+                    </div>
+                HTML;
+        }
+
         $paymentMethodName = getPaymentMethodById($id_payment)['name'];
 
         $shipping = getShippingMethodByPrice($id_shipping);
@@ -76,37 +112,7 @@
         header("Location: ?mod=cart&act=viewCart");
     }
 
-    /** render summary product and calculate */
-    $summaryProductHtml = '';
-    foreach ($cart as $item) {
-        extract($item);
-        $formatedPrice = formatVND($price);
-        
-        $imgPath = constant('PRODUCT_PATH') . $img;
-
-        $categoryName = getCategoryById(getIdCategoryByIdProducts($id_product))['name'];
-        
-        $summaryProductHtml .=
-            <<<HTML
-                <div class="listProductCart_item flex">
-                    <div class="col-6 width-full">
-                        <div class="col-12 width-full flex">
-                            <div class="col-4 width-full">
-                                <img src="$imgPath" alt="">
-                            </div>
-                            <div class="col-8 width-full row">
-                                <div class="col-12 width-full cart-item-name">$name</div>
-                                <div class="col-12 width-full flex a-end">Danh mục: <span>$categoryName</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 width-full row j-end">
-                        <div class="col-12 width-full flex j-end">$formatedPrice</div>
-                        <div class="col-12 width-full flex j-end a-end">X $qty</div>
-                    </div>
-                </div>
-            HTML;
-    }
+    
 ?>
 
 
@@ -136,8 +142,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- End Confirm HEADING Text -->
     <div class="detailOrders">
         <div class="col-12 width-full detailerOrders_top mb30">

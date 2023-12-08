@@ -211,12 +211,12 @@ foreach ($categoryProducts as $item) {
                 <div class="product__info flex-between width-full">
                     <div class="product__info__view body-medium">$views views</div>
                     <div class="product__info__rated flex g6 v-center body-medium">
-                        4.4 <i class="fa fa-star start"></i>
+                        $purchases lượt mua
                     </div>
                 </div>
             </div>
             <!-- single product end -->
-        HTML;
+HTML;
 }
 
 /** category rendering */
@@ -358,7 +358,7 @@ foreach ($categories as $item) {
                 <span class="btn__text">Ẩn filter</span>
             </button>
         </div>
-        <ul class="filter-toggle__list flex g20 flex-full">
+        <ul class="filter-toggle__list desktop flex g20 flex-full">
             <!-- filter tonggle list item here -->
         </ul>
         <ul class="filter__list open flex g12 flex-full j-end">
@@ -463,6 +463,7 @@ foreach ($categories as $item) {
             <!-- date filter end -->
         </ul>
     </div>
+    <div class="filter-toggle__list--mobile mobile flex g20 flex-full" style="display: flex !important; margin-top: 1.2rem"></div>
     <div class="product__wrapper product__wrapper--without-carousel auto-grid g20 mt30">
         <?= $productHtml ?>
     </div>
@@ -480,17 +481,6 @@ foreach ($categories as $item) {
         <button class="icon-btn mobile__filter__btn--close"><i class="fal fa-times"></i></button>
     </div>
     <ul class="mobile__filter__list pi12">
-        <li class="accordion mobile__filter__item">
-            <div class="mobile__filter__name ttc accordion__top flex-between p16">
-                DANH MỤC 
-                <i class="fa-solid fa-caret-down"></i>
-            </div>
-            <div class="p10 accordion__content">
-                <ul class="mobile__filter__option-list p10">
-                    <?= $categoryMobileFilterHtml ?>
-                </ul>
-            </div>
-        </li>
         <li class="accordion mobile__filter__item">
             <div class="mobile__filter__name ttc accordion__top flex-between p16">
                 TÊN
