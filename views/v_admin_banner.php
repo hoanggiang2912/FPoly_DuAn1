@@ -323,7 +323,7 @@
 </section>
 <script>
 const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+const $$ = document.querySelectorAll.bind(document) 
 
 const imgbanners = $$('#img_banner');
 const banners = $$('#banner');

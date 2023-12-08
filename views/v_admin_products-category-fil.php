@@ -96,9 +96,9 @@ $product .="<h1 class='flex-center flex-full mt-5'>Sản phẩm này đang cập
     <div class="top">
         <i class="fas fa-angle-left sidebar-toggle"></i>
         <div class="search-box">
-            <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
+            <form style="width: 100%;display:flex; justify-content: center;" action="?mod=admin&act=products-search" method="post">
                 <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm...">
+                <input type="text" placeholder="Tìm kiếm..." name="keyword">
             </form>
         </div>
         <div class="info-user">
@@ -249,13 +249,6 @@ $product .="<h1 class='flex-center flex-full mt-5'>Sản phẩm này đang cập
                 <span class="label-large">Admin /</span><a href="?mod=admin&act=products&page=1" class="label-large"
                     style="text-decoration: none;">Sản Phẩm</a>
             </div>
-            <div class="flex-center g8">
-                <span><i class="fa-solid fa-calendar-days"></i></span>
-                <input class="label-large-prominent" type="datetime-local" style="color: #625B71; border: none; font-size: 16px;
-                ">
-
-            </div>
-
         </div>
 
     </div>
