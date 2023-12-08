@@ -9,7 +9,7 @@ session_start();
 ob_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_SESSION['cart'])) {
+    if (isset($_SESSION['cart']) && !empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         // Retrieve the JSON data from the request body
         $jsonData = file_get_contents('php://input');
 
@@ -19,20 +19,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Access the JSON data as needed
         $productIds = $data['productIds'];
 
-        if (isset($_SESSION['userLogin'])) {
-            $idUser = $_SESSION['userLogin']['id_user'];
-            // Remove the products from the database
-            removeProductsFromDatabase($productIds, $idUser);
-        }
-
+        $cart= [];
 
         // Loop through the cart to find the product by its unique identifier (e.g., product ID)
-        foreach ($productIds as $productId) {
-            foreach ($_SESSION['cart'] as $key => $product) {
-                if ($product['id_product'] === $productId) {
-                    // Remove the product from the cart
-                    unset($_SESSION['cart'][$key]);
-                    break;
+        if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
+            extract($_SESSION['userLogin']);
+            foreach ($productIds as $productId) {
+                foreach ($_SESSION['cart'][$id_user]['cart'] as $key => $product) {
+                    if ($product['id_product'] === $productId) {
+                        unset($_SESSION['cart'][$idUser]['cart'][$productId]);
+                        $cart = $_SESSION['cart'][$idUser]['cart'];
+                    }
+                }
+            }
+        } else {
+            foreach ($productIds as $productId) {
+                foreach ($_SESSION['cart']['guest'] as $key => $product) {
+                    if ($product['id_product'] === $productId) {
+                        unset($_SESSION['cart']['guest'][$productId]);
+                        $cart = $_SESSION['cart']['guest'];
+                    }
                 }
             }
         }
@@ -41,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cartInfo = updateCartInfo();
 
         // Generate the updated cart HTML
-        $cartHtml = generateCartHtml($_SESSION['cart']);
+        $cartHtml = generateCartHtml($cart);
 
         // Combine cart information and HTML into a single response
         $response = array(
@@ -63,38 +69,28 @@ function updateCartInfo()
 {
     $cartTotal = 0;
     $tax = 0;
-    $btnLink = "";
-    $btnText =  '';
-    if (count($_SESSION['cart']) > 0) {
-        if (isset($_SESSION['userLogin']) && $_SESSION['userLogin']) {
-            $btnLink = "?mod=cart&act=checkout";
-            $btnText = 'Thanh toán ngay';
-        } else {
-            $btnText = 'Đăng nhập để thanh toán';
-            $btnLink = "?mod=page&act=login";
+    $cartAmount = 0;
+
+    if (isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin']) && is_array($_SESSION['userLogin'])) {
+        extract($_SESSION['userLogin']);
+        if (isset($_SESSION['cart'][$id_user]['cart']) && count($_SESSION['cart'][$id_user]['cart']) > 0) {
+            foreach ($_SESSION['cart'][$id_user]['cart'] as $item) {
+                extract($item);
+                $cartTotal += $price * $qty;
+            }
+
+            $tax = $cartTotal * 0.1;
         }
+        $cartAmount = count($_SESSION['cart'][$id_user]['cart']);
     } else {
-        $btnLink = "?mod=page&act=home";
-        $btnText = 'Tiếp tục mua sắm';
+        $cartAmount = count($_SESSION['cart']['guest']);
     }
 
-    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
-        foreach ($_SESSION['cart'] as $item) {
-            extract($item);
-            $cartTotal += $price * $qty;
-        }
-
-        $tax = $cartTotal * 0.1;
-    }
-
-    $cartAmount = count($_SESSION['cart']);
 
     $cartInfo = array(
         'cartAmount' => $cartAmount,
         'cartTotal' => formatVND($cartTotal),
         'cartTotalWithTax' => formatVND($cartTotal + $tax),
-        'btnLink' => $btnLink,
-        'btnText' => $btnText
     );
 
     return $cartInfo;

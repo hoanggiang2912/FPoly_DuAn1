@@ -1,10 +1,12 @@
 .pagination {
+    flex-wrap: wrap;
     &__item {
         border-radius: .4rem;
         color: $light-primary;
         // padding: 1rem;
         width: 3.6rem;
-        aspect-ratio: 1;
+        height: 3.6rem;
+        flex-shrink: 0;
         display: flex;
         justify-content: center;
         align-items: center;

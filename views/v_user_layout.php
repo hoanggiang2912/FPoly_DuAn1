@@ -118,6 +118,9 @@ if(isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <!-- jquery link -->
     <script src="./public/assets/resources/js/jquery.js"></script>
+    <!-- ion icon -->
+    <script type="module"src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -267,7 +270,16 @@ if(isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
         <!-- header respon fullscreen nav start -->
         <ul class="header__nav-respon header__nav-respon-full">
             <li class="header__nav-respon-full__item flex-between v-center">
-                <button class="icon-btn"><i class="fal fa-user"></i></button>
+                <?php 
+                    $linkToUser = '';
+                    if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
+                        $id_user = $_SESSION['userLogin']['id_user'];
+                        $linkToUser = "?mod=user&act=general&id_user=$id_user";
+                    } else {
+                        $linkToUser = "?mod=page&act=login";
+                    }
+                ?>
+                <a href="<?= $linkToUser ?>" class="icon-btn"><i class="fal fa-user"></i></a>
                 <button class="icon-btn close-respon-btn"><i class="fal fa-times"></i></button>
             </li>
             <li class="header__nav-respon-full__item flex-between">
@@ -278,9 +290,6 @@ if(isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
             </li>
             <li class="header__nav-respon-full__item flex-between">
                 <a href="?mod=page&act=contact" class="header__nav-respon-full__link">liên hệ</a>
-            </li>
-            <li class="header__nav-respon-full__item flex-between">
-                <a href="?mod=user&act=general" class="header__nav-respon-full__link">tài khoản</a>
             </li>
         </ul>
         <!-- header respon fullscreen nav end -->

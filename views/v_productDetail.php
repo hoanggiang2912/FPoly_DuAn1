@@ -435,7 +435,7 @@ if (isset($_POST['editComment'])) {
                 <input type="text" name="query" class="form__input rounded-100 width-full" style="padding-left: 4rem">
             </div>
         </form>
-        <button class="icon-btn cart-btn"><i class="fal fa-shopping-cart"></i></button>
+        <a href="?mod=cart&act=viewCart" class="icon-btn cart-btn"><i class="fal fa-shopping-cart"></i></a>
 
         <!-- guest widget -->
         <!-- <button class="icon-btn user-btn"><i class="fal fa-user"></i></button> -->
@@ -445,7 +445,7 @@ if (isset($_POST['editComment'])) {
             <button class="icon-btn more-btn"><i class="far fa-ellipsis-h"></i></button>
             <ul class="poa option__list oh p10 box-shadow1 rounded-8">
                 <li class="option__item">
-                    <a href="#" class="option__link ttc">trang chủ</a>
+                    <a href="?mod=page&act=home" class="option__link ttc">trang chủ</a>
                 </li>
                 <li class="option__item">
                     <a href="#" class="option__link ttc">chia sẻ</a>
