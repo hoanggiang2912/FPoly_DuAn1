@@ -146,6 +146,7 @@ if (isset($_GET['act'])) {
         case 'delete-account':
             include_once 'models/m_user.php';
             include_once 'models/m_address.php';
+            include_once 'models/m_comment.php';
             $view_name = 'user-deleteAccount';
             #add class
             $active__deleteAccount = 'menu__active';
