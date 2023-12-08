@@ -637,7 +637,7 @@ if (isset($_POST['editComment'])) {
                     ?>
 
                 </div>
-                <div style="position: relative;" class="mt30 comment__wrapper">
+                <div class="mt30 comment__wrapper">
                     <!-- product comments here  -->
                     <!-- single comment start -->
                     <?php
@@ -650,7 +650,7 @@ if (isset($_POST['editComment'])) {
                         $productImgCmt = getImgCommentById($idCmt);
                         if ($item['is_appear'] == 1) {
                             ?>
-                            <div class="comment__item mb30 p30">
+                            <div class="comment__item mb30 p30" style="position: relative;">
                                 <div class="flex comment__user">
                                     <div class="flex g12">
                                         <div class="user__avt avt"><img
@@ -707,6 +707,7 @@ if (isset($_POST['editComment'])) {
                                             </ul>
                                         </div>
                                         <?php
+
                                     }
                                     ?>
                                 </div>
@@ -721,22 +722,23 @@ if (isset($_POST['editComment'])) {
                                         foreach ($productImgCmt as $result) {
                                             ?>
                                             <div class="comment_media_item">
-                                                <img src="./upload/users/<?php echo $result['src'] ?>" alt="">
+                                                <img src="/upload/users/<?php echo $result['src'] ?>" alt="">
                                             </div>
                                             <?php
                                         }
                                     }
                                     ?>
                                 </div>
-                            </div>
-                            <div class="poup_item-bg" style="display: none;">
-                                <div class="poup_item">
-                                    <p class="title-medium">Bạn có chắc chắn muốn xóa bình luận này ?</p>
-                                    <a class="popup_item_delete"
-                                        href="?mod=page&act=delCmt&reportId=<?php echo $item['id'] ?>&idProduct=<?php echo $productId ?>"><button>Xóa</button></a>
-                                    <button class="popup_item_canc">Hủy</button>
+                                <div class="poup_item-bg" style="display: none;">
+                                    <div class="poup_item">
+                                        <p class="title-medium">Bạn có chắc chắn muốn xóa bình luận này ?</p>
+                                        <a class="popup_item_delete"
+                                            href="?mod=page&act=delCmt&reportId=<?php echo $item['id'] ?>&idProduct=<?php echo $productId ?>"><button>Xóa</button></a>
+                                        <button class="popup_item_canc">Hủy</button>
+                                    </div>
                                 </div>
                             </div>
+
                             <?php
                         } else {
                             ?>
@@ -932,16 +934,19 @@ if (isset($_POST['editComment'])) {
     }
 </script>
 <script>
-    $(document).ready(function () {
-        $('.liSonDeleteFeatureComment').click(function (e) {
-            e.preventDefault();
-            $('.poup_item-bg').show();
-            $('.poup_item button').click(function () {
-                $('.poup_item-bg').hide();
-            });
-            $('.poup_item a button').click(function () {
-                window.location.href = $('.liSonDeleteFeatureComment a').attr('href');
-            });
+    var deleteButtons = document.querySelectorAll('.liSonDeleteFeatureComment');
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var commentItem = this.closest('.comment__item');
+            commentItem.querySelector('.poup_item-bg').style.display = 'block';
+        });
+    });
+
+    var cancelButtons = document.querySelectorAll('.popup_item_canc');
+    cancelButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var commentItem = this.closest('.comment__item');
+            commentItem.querySelector('.poup_item-bg').style.display = 'none';
         });
     });
 </script>
