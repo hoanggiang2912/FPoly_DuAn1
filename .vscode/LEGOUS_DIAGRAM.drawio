@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-08T05:01:06.785Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="yM_gWakZYADusYgC-JJW" version="22.1.7" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-12-08T05:05:31.639Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="sFqzirh6-XOLwuN8u5i1" version="22.1.7" type="github" pages="3">
   <diagram name="ERD_Level-2" id="pAu8UCIuzO0xKMdAqkZU">
     <mxGraphModel dx="2284" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -2084,12 +2084,12 @@
     </mxGraphModel>
   </diagram>
   <diagram id="dG55OaIMH1s8mLlmf6uI" name="UseCases">
-    <mxGraphModel dx="1563" dy="1303" grid="1" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1780" dy="1422" grid="1" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="qxi15ggXLHe5vJS9j5tN-3" value="" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;allowArrows=0;flipH=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="912" y="8" width="624" height="784" as="geometry" />
+          <mxGeometry x="912" y="8" width="624" height="1152" as="geometry" />
         </mxCell>
         <mxCell id="lV1woY5oFvnKtwxInxTv-1" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;User&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
           <mxGeometry x="839" y="484" width="30" height="60" as="geometry" />
@@ -2233,7 +2233,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="F65lQGrhRDL_a8bFUz6z-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;LEGOUS.COM&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="922.5" y="36" width="637" height="30" as="geometry" />
+          <mxGeometry x="912" y="36" width="624" height="30" as="geometry" />
         </mxCell>
         <mxCell id="eTixicEiBMkgIMZQTeGX-8" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;Thêm giỏ hàng&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;br style=&quot;font-size: 16px;&quot;&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1130" y="250" width="154.21" height="70" as="geometry" />
