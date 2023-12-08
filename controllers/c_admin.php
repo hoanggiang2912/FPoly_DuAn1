@@ -11,9 +11,8 @@ require_once './models/m_bill.php';
 // Hiển thị dữ liệu thông qua view
 
 
-if ($_SESSION['role'] == 0 || !empty($_SESSION['userLogin'])) {
+if ($_SESSION['role'] == 0 || !empty($_SESSION['userLogin']) || empty($_SESSION['admin'])) {
     header("Location: ?mod=page&act=home");
-    exit();
 }
 foreach (getAllCoupon() as $item) {
     if ($item['expired_date'] <= date('Y-m-d 00:00:00')) {
@@ -113,16 +112,16 @@ if (isset($_GET['act'])) {
                 if (isset($_POST['kyw_cg'])) {
                     $get_kyw = $_POST['kyw_cg'];
                     header('Location: ?mod=admin&act=categories&page=1&search_category=' . urlencode($get_kyw));
-                    exit; 
+                    exit;
                 } else if (isset($_GET['search_category'])) {
                     $kyw_cg = $_GET['search_category'];
                     if (isset($_GET['sort'])) {
                         $sort = $_GET['sort'];
                         $get_Category = get_Categoris(($_GET['page'] - 1) * 4, 4, $kyw_cg, $sort);
                     } else {
-                        if(empty($kyw_cg)){
+                        if (empty($kyw_cg)) {
                             $get_Category = [];
-                        }else{
+                        } else {
                             $get_Category = get_Categoris(($_GET['page'] - 1) * 4, 4, $kyw_cg);
                         }
                     }
@@ -146,13 +145,13 @@ if (isset($_GET['act'])) {
                     $startPage = max(1, $endPage - 5);
                 }
                 if (isset($_GET['del'])) {
-                    if(count_products_category($_GET['del'])[0]['SLSP'] > 0) {
-                        $tb ='<div style="position:relative;top:25px;" class="alert alert-danger" role="alert">Bạn không thể xóa danh mục đã có sản phẩm</div>';
-                    }else {
+                    if (count_products_category($_GET['del'])[0]['SLSP'] > 0) {
+                        $tb = '<div style="position:relative;top:25px;" class="alert alert-danger" role="alert">Bạn không thể xóa danh mục đã có sản phẩm</div>';
+                    } else {
                         delete_category($_GET['del']);
-                    header('Location:?mod=admin&act=categories&page=1');
-                    }   
-                } 
+                        header('Location:?mod=admin&act=categories&page=1');
+                    }
+                }
             }
             // Cập nhật dữ liệu
             if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -297,15 +296,14 @@ if (isset($_GET['act'])) {
                 }
                 $getAll = getAllCart();
                 if (isset($_POST['delete_bill'])) {
-                    if(count(check_idbillCart($Get_Id_Order)) > 0) {
-                        $tb ='<div class="alert alert-danger" role="alert">Bạn không thể xóa đơn hàng đã có sản phẩm</div>';
-                    }else {
+                    if (count(check_idbillCart($Get_Id_Order)) > 0) {
+                        $tb = '<div class="alert alert-danger" role="alert">Bạn không thể xóa đơn hàng đã có sản phẩm</div>';
+                    } else {
                         del_bill($_GET['id']);
                         header('Location:?mod=admin&act=orders');
                     }
-                } 
-            }
-            elseif (isset($_GET['detail_id'])) {
+                }
+            } elseif (isset($_GET['detail_id'])) {
                 $Get_Id_Order = $_GET['detail_id'];
                 $Id_bill = get_OneOrder_bill($Get_Id_Order);
                 $id_User = $Id_bill[0]['id_user'];
@@ -320,14 +318,14 @@ if (isset($_GET['act'])) {
                     header('Location:?mod=admin&act=orders');
                 }
             }
-            
-              
+
+
 
             //hiển thị dữ liệu  
             $view_name = 'admin_orders';
             break;
 
-         case 'orders-add':
+        case 'orders-add':
             include_once 'models/m_admin.php';
             // lấy dữ liệu
             if (isset($_POST['btn_update_order'])) {
