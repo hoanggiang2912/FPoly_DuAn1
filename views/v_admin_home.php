@@ -1,3 +1,23 @@
+<link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
+    type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Space+Mono&display=swap"
+    rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="./public/assets/resources/sass/css/owl.carousel.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="./public/assets/resources/js/jquery.js"></script>
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <?php
 $getTotalBill = getBill();
 $getProduct = getProducts();
@@ -500,65 +520,65 @@ foreach ($getCmt as $item) {
                     </tr>
                     <?php
                     $getAllCart = getNew10Cart();
-                    foreach($getAllCart as $item) {
+                    foreach ($getAllCart as $item) {
                         $getAllBill = getBillByID($item['id_bill']);
                         $getIdUser = getUserById($getAllBill[0]['id_user']);
                         $getIdProduct = getProductById($item['id_product']);
                         ?>
-                        <tr>
-                            <td class="label-large tableLargeItems" style="text-align:center;">
-                                <?php echo $item['id'] ?>
-                            </td>
-                            <td class="label-large">
-                                <?php echo $getIdUser[0]['fullname'] ?>
-                            </td>
-                            <td class="label-large">
-                                <?php echo $getAllBill[0]['create_date'] ?>
-                            </td>
-                            <td class="label-large label-large__product" style="width: 350px; max-width: 350px;">
-                                <?php echo $getIdProduct['name'] ?>
-                            </td>
-                            <?php
-                            if($getAllBill[0]['status'] == 6) {
+                    <tr>
+                        <td class="label-large tableLargeItems" style="text-align:center;">
+                            <?php echo $item['id'] ?>
+                        </td>
+                        <td class="label-large">
+                            <?php echo $getIdUser[0]['fullname'] ?>
+                        </td>
+                        <td class="label-large">
+                            <?php echo $getAllBill[0]['create_date'] ?>
+                        </td>
+                        <td class="label-large label-large__product" style="width: 350px; max-width: 350px;">
+                            <?php echo $getIdProduct['name'] ?>
+                        </td>
+                        <?php
+                            if ($getAllBill[0]['status'] == 6) {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable red"></span>Đã Hủy</td>
-                                <?php
-                            } elseif($getAllBill[0]['status'] == 5) {
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable red"></span>Đã Hủy</td>
+                        <?php
+                            } elseif ($getAllBill[0]['status'] == 5) {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable green"></span>Đã Giao</td>
-                                <?php
-                            } elseif($getAllBill[0]['status'] == 4) {
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable green"></span>Đã Giao</td>
+                        <?php
+                            } elseif ($getAllBill[0]['status'] == 4) {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable orange"></span>Hoàn đơn</td>
-                                <?php
-                            } elseif($getAllBill[0]['status'] == 3) {
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable orange"></span>Hoàn đơn</td>
+                        <?php
+                            } elseif ($getAllBill[0]['status'] == 3) {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable blue"></span>Đang giao hàng</td>
-                                <?php
-                            } elseif($getAllBill[0]['status'] == 2) {
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable blue"></span>Đang giao hàng</td>
+                        <?php
+                            } elseif ($getAllBill[0]['status'] == 2) {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable black"></span>Chờ Lấy Hàng</td>
-                                <?php
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable black"></span>Chờ Lấy Hàng</td>
+                        <?php
                             } else {
                                 ?>
-                                <td class="label-large tableLargeItems" style="justify-content: center;"><span
-                                        class="dotTable gray"></span>Chờ Xác Nhận</td>
-                                <?php
+                        <td class="label-large tableLargeItems" style="justify-content: center;"><span
+                                class="dotTable gray"></span>Chờ Xác Nhận</td>
+                        <?php
                             }
                             ?>
-                            <td class="label-large">
-                                <?php echo number_format($item['total_cost'], 0, ',') ?>VNĐ
-                            </td>
-                        </tr>
-                        <?php
+                        <td class="label-large">
+                            <?php echo number_format($item['total_cost'], 0, ',') ?>VNĐ
+                        </td>
+                    </tr>
+                    <?php
 
-                                        }
-                                        ?>
+                    }
+                    ?>
                 </table>
             </div>
 
@@ -645,28 +665,28 @@ foreach ($getCmt as $item) {
                             <div class="ordertopProduct">
                                 <div class="ordertopProduct_items">
                                     <?php
-                                                        $products = getProducts();
-                                                        $totalByProduct = array();
-                                                        $orderCountByUser = array();
+                                    $products = getProducts();
+                                    $totalByProduct = array();
+                                    $orderCountByUser = array();
 
-                                                        foreach ($products as $item) {
-                                                            if (!isset($totalByProduct[$item['id']])) {
-                                                                $totalByProduct[$item['id']] = 0;
-                                                                $orderCountByUser[$item['id']] = 0;
-                                                            }
-                                                            $totalByProduct[$item['id']] += $item['price'] * $item['purchases'];
-                                                            $orderCountByUser[$item['id']] += $item['purchases'];
-                                                        }
+                                    foreach ($products as $item) {
+                                        if (!isset($totalByProduct[$item['id']])) {
+                                            $totalByProduct[$item['id']] = 0;
+                                            $orderCountByUser[$item['id']] = 0;
+                                        }
+                                        $totalByProduct[$item['id']] += $item['price'] * $item['purchases'];
+                                        $orderCountByUser[$item['id']] += $item['purchases'];
+                                    }
 
-                                                        // Sắp xếp mảng theo thứ tự giảm dần
-                                                        arsort($totalByProduct);
+                                    // Sắp xếp mảng theo thứ tự giảm dần
+                                    arsort($totalByProduct);
 
-                                                        // Lấy 6 phần tử đầu tiên
-                                                        $totalByProduct = array_slice($totalByProduct, 0, 6, true);
+                                    // Lấy 6 phần tử đầu tiên
+                                    $totalByProduct = array_slice($totalByProduct, 0, 6, true);
 
-                                                        foreach ($totalByProduct as $productId => $total) {
-                                                            $product = getProductById($productId);
-                                                            ?>
+                                    foreach ($totalByProduct as $productId => $total) {
+                                        $product = getProductById($productId);
+                                        ?>
                                     <div class="ordertopProduct_item">
                                         <div class="col-12 d-flex justify-content-between">
                                             <div class="col-6 nameCategories">
@@ -688,8 +708,8 @@ foreach ($getCmt as $item) {
                                         </div>
                                     </div>
                                     <?php
-                                                        }
-                                                        ?>
+                                    }
+                                    ?>
 
                                 </div>
                             </div>
@@ -744,3 +764,49 @@ foreach ($getCmt as $item) {
     <!----======== End Body DashBoard ======== -->
 
 </section>
+
+
+<!-- Owl Carousel JS -->
+<script src="./public/assets/resources/js/owl.carousel.min.js"></script>
+<script src="./public/assets/resources/js/admin.js"></script>
+<!----======== Bootstrap ======== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+</script>
+</script>
+<script>
+$('.owl-carousel').owlCarousel({
+    margin: 10,
+    nav: true,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 2
+        },
+        1100: {
+            items: 3
+        },
+        1440: {
+            items: 4
+        }
+
+    }
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./public/assets/resources/js/jquery.dataTables.min.js"></script>
+<script src="./public/assets/resources/js/dataTables.bootstrap4.min.js"></script>
+<script>
+$(function() {
+    $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+});
+</script>
