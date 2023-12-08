@@ -17,6 +17,7 @@ $(document).ready(function () {
         $('.sale-banner__wrapper').slick( {
             prevArrow: false,
             nextArrow: false,
+            autoplay: true,
         });
     }
 

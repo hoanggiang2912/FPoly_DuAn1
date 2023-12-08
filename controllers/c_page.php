@@ -63,7 +63,7 @@ if (isset($_GET['act'])) {
                                 // Call a function to insert the product into the cart table
                                 insertCart($id, $productId, $name, $price, $img, $qty, $totalCost);
                                 // redirect
-                                
+
                                 header('Location: ?mod=cart&act=viewCart');
                             }
 
@@ -218,7 +218,7 @@ if (isset($_GET['act'])) {
             $getIdProduct = $_GET['idProduct'];
             $getAllCmtImg = getAllCmtImg($getID);
             foreach ($getAllCmtImg as $item) {
-                $delete_file = './public/assets/media/images/comment/' . $item['src'];
+                $delete_file = './upload/users/' . $item['src'];
                 unlink($delete_file);
                 delImgCmt($item['id']);
             }
@@ -231,7 +231,7 @@ if (isset($_GET['act'])) {
             include_once 'models/m_img.php';
             include_once 'models/m_comment.php';
             include_once 'models/m_address.php';
-            
+
             $view_name = 'productDetail';
 
 

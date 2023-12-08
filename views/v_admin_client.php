@@ -19,7 +19,7 @@ if (@$_POST['act_search']) {
         <div class="search-box">
             <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
                 <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm...">
+                <input name="act_search" type="text" placeholder="Tìm kiếm...">
             </form>
         </div>
         <div class="info-user">

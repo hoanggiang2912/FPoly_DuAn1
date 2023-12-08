@@ -11,24 +11,23 @@
 
     if (isset($_SESSION['userLogin'])) {
         extract($_SESSION['userLogin']);
-        $userCart = getCartByUserId ($id_user);
+        if (isset($_SESSION['cart']) && key_exists($id_user, $_SESSION['cart'])) {    
+            $userCart = $_SESSION['cart'][$id_user]['cart'];
+        }
+    } else {
+        if (isset($_SESSION['cart']) && key_exists('guest', $_SESSION['cart'])) {    
+            $userCart = $_SESSION['cart']['guest'];
+        }
     }
-
-    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0 || $userCart) {
-
+    
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0 && !empty($userCart)) {
+        
         $btnLink = "?mod=cart&act=checkout";
         $btnText = 'Tiếp tục';
-        // if (isset($_SESSION['userLogin']) && $_SESSION['userLogin']) {
-        // } else {
-        //     $btnText = 'Đăng nhập để thanh toán';
-        //     $btnLink = "?mod=page&act=login";
-        // }
 
         $cartProducts = [];
         if (!empty($userCart)) {
             $cartProducts = $userCart;
-        } else {
-            $cartProducts = $_SESSION['cart'];
         }
         $cartAmount = count($cartProducts);
         

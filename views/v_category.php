@@ -280,7 +280,7 @@ foreach ($categories as $item) {
                 <input type="text" class="form__input rounded-100 width-full" style="padding-left: 4rem">
             </div>
         </form>
-        <button class="icon-btn cart-btn"><i class="fal fa-shopping-cart"></i></button>
+        <a href="?mod=cart&act=viewCart" class="icon-btn cart-btn"><i class="fal fa-shopping-cart"></i></a>
 
         <!-- guest widget -->
         <!-- <button class="icon-btn user-btn"><i class="fal fa-user"></i></button> -->

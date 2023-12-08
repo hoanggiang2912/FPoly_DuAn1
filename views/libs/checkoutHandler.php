@@ -18,10 +18,10 @@
 
         $total = 0;
 
-        if (isset($_SESSION['userLogin'])) {
+        if (isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin']) && is_array($_SESSION['userLogin'])) {
             /** lây id user insert vào bill, trả lại Id bill */
             extract($_SESSION['userLogin']);
-            $userCart = getCartByUserId($id_user);
+            $userCart = $_SESSION['cart'][$id_user]['cart'];
             $total = totalBill($userCart);
 
             if (empty($name_recipient)) {
@@ -42,11 +42,10 @@
                 /** update product purchases */
                 $purchases = rand(10, 100);
                 updateProductPurchases($id_product, $purchases);
-                /** update id_bill của những sản phẩm trong bảng cart có id_user bằng với id_user trong userLogin */
-                updateIdBillInCart($id_user, $idBill, $id_product);
+                insertCartWithIdBill($idBill, $id_user, $id_product, $name, $price, $img, $qty, $totalCost);
             }
-            if (isset($_SESSION['cart'])) {
-                unset($_SESSION['cart']);
+            if (isset($_SESSION['cart'][$id_user])) {
+                unset($_SESSION['cart'][$id_user]);
             }
             header("Location: ?mod=cart&act=confirm");
             exit();
@@ -56,7 +55,7 @@
             $randomPassword = generateRandomPassword(8);
             $id_user = insertUser($randomUsername, $email_user, $randomPassword);
             /** tạo đơn hàng -> trả về idBill */
-            $cart = $_SESSION['cart'];
+            $cart = $_SESSION['cart']['guest'];
             $total = totalBill($cart);
             $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total);
             $_SESSION['idBill'] = $idBill;
@@ -70,12 +69,14 @@
                 $productQty = getProductQtyById($id_product);
                 $newQty = $productQty - $qty;
                 updateProductQty($id_product, $newQty);
+
                 /** update product purchases */
                 $purchases = rand(10, 100);
                 updateProductPurchases($id_product, $purchases);
+
                 insertCartWithIdBill($idBill, $id_user, $id_product, $name, $price, $img, $qty, $totalCost);
             }
-            unset($_SESSION['cart']);
+            unset($_SESSION['cart']['guest']);
             header("Location: ?mod=cart&act=confirm");
             exit();
         }

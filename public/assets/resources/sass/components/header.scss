@@ -219,7 +219,7 @@
     background: $-white;
     position: fixed;
     top: 0;
-    right: 0;
+    right: clamp(6rem, -11.143rem + 45.714vw, 30rem);
     bottom: 0;
     left: 0;
     color: $neutral40 !important;

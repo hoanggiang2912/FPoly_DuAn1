@@ -374,7 +374,7 @@ if (@isset($_POST['btn_cancelled'])) {
                             if (isset($error['img']) && !empty($error['img']))
                                 echo "<p class='text-danger text-error title-medium'>{$error['img']}</p>";
                             ?>
-                            ?>
+                            
                             <div style="width: 100%;" id="demo" class="demo .box-shadow1">
 
                             </div>

@@ -99,11 +99,13 @@ function update_Change_status($change_status,$id) {
  
 // -------------------------------- Phần orders kết thúc------------------------
 //--------------------------------- bill-add----------------------------------
+
 function order_add($name_us_order, $location_us_order, $email_us_order, $phone_us_order, $total_order1, $status_order, $method_order1, $now) {
-  $sql = "INSERT NTO bill (id_user, id_coupon, id_shipping, id_payment, email_user, phone_user, address_user, email_recipient, name_recipient, phone_recipient, address_recipient, total, create_date, status) 
+  $sql = "INSERT INTO bill (id_user, id_coupon, id_shipping, id_payment, email_user, phone_user, address_user, email_recipient, name_recipient, phone_recipient, address_recipient, total, create_date, status) 
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  pdo_execute($sql, 1, 1, 1, $method_order1, 'admin@123', '123', 'HCM', $email_us_order, $name_us_order, $phone_us_order, $location_us_order, $total_order1, $now, $status_order);
+  pdo_execute($sql, 1, 1, $method_order1, 1, 'admin@123', '123', 'HCM', $email_us_order, $name_us_order, $phone_us_order, $location_us_order, $total_order1, $now, $status_order);
 }
+
 function del_bill($id){
   pdo_execute("DELETE FROM bill WHERE id = {$id}");
 }

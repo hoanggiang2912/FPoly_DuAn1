@@ -22,7 +22,7 @@
         $estimatedDeliveryDate = date('d-m-Y', $estimatedDeliveryTimestamp);
         
         $billInfoHtml = '';
-        if ($billInfo['phone_recipient'] != 1) {
+        if ($billInfo['phone_recipient'] != 1 || $billInfo['phone_recipient'] != '') {
             $billInfoHtml = 
                 <<<HTML
                     <div class="col-12 width-full flex mb20 recipientOrderUser">
