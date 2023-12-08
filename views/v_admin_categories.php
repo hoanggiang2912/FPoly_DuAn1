@@ -3,9 +3,10 @@
     <div class="top">
         <i class="fas fa-angle-left sidebar-toggle"></i>
         <div class="search-box">
-            <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
-                <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm...">
+            <form action="?mod=admin&act=categories&page=<?=$page_nows?>&search_category" method="post">
+            <i class="far fa-search"></i>
+            <input name="kyw_cg" type="text" placeholder="Tìm kiếm...">
+            <button name="search_cg" type="submit"></button>
             </form>
         </div>
         <div class="info-user">
@@ -177,12 +178,11 @@
 
         </div>
         <!-- text -->
-        <?php
 
-        ?>
         <!-- end text -->
         <table class="content-table width-full">
             <thead>
+            <?=@$tb?>
                 <tr>
                     <th>ID</th>
                     <th>Tên Danh Mục</th>
@@ -190,6 +190,7 @@
                     <th>Mô tả danh mục</th>
                     <th>Số lượng sản phẩm</th>
                     <th>Ngày đã tạo</th>
+                    <th>Xóa</th>
                     <th>Khác</th>
                 </tr>
             </thead>
@@ -210,7 +211,7 @@
                 <?php else: ?>
                     <?php foreach ($get_Category as $item): ?>
                         <tr>
-                            <td>#
+                            <td>
                                 <?= $item['id'] ?>
                             </td>
                             <td>
@@ -229,6 +230,9 @@
                             </td>
                             <td>
                                 <?= $item['create_date'] ?>
+                            </td>
+                            <td>
+                                <a href="?mod=admin&act=categories&page=1&del=<?=$item['id'] ?>" name="btn_xoa_category"><i class="fa-solid fa-trash"></i></a>
                             </td>
                             <td><a href="?mod=admin&act=categories&page=<?= $page_nows ?>&id=<?= $item['id'] ?>" id="myButton"><i
                                         style="font-size:20px;" class="fa-solid fa-gear"></i></a></td>

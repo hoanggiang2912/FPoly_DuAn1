@@ -5104,6 +5104,47 @@ table tbody tr td a {
   color: gray;
 }
 
+.popup_detail-order {
+  font-size: 16px;
+  display: block;
+  position: fixed;
+  z-index: 99;
+  padding-top: 15px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.popup_detail-order .popup_detail--content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
+  min-height: 1000px;
+}
+.popup_detail-order .popup_detail--content .table_order table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.popup_detail-order .popup_detail--content .table_order table, .popup_detail-order .popup_detail--content .table_order th, .popup_detail-order .popup_detail--content .table_order td {
+  border: 1px solid #e1e0dc;
+}
+.popup_detail-order .popup_detail--content .table_order th, .popup_detail-order .popup_detail--content .table_order td {
+  padding: 15px;
+  text-align: center;
+}
+.popup_detail-order .popup_detail--content div .width-fix {
+  width: 191px;
+  margin: 3px 0;
+}
+.popup_detail-order .popup_detail--content div .width-fix h4 {
+  margin-right: 10px;
+  font-size: medium !important;
+}
+
 /* Mobile: with < 740px */
 @media only screen and (max-width: 46.1875em) {
   .containerAdmin_order-detail .sliderDashboard_order-detail .container_order-detail .Order_ID {

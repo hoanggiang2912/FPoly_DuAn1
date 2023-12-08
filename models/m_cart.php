@@ -3,6 +3,9 @@ include_once 'm_pdo.php';
 function getAllCart() {
   return pdo_query("SELECT * FROM cart");
 }
+function check_idbillCart($Get_Id_Order) {
+  return pdo_query("SELECT * FROM cart WHERE id_bill = $Get_Id_Order");
+}
 function getNew10Cart() {
   return pdo_query("SELECT * FROM cart ORDER BY id DESC LIMIT 10");
 }
