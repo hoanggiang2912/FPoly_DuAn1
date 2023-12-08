@@ -145,6 +145,14 @@ if (isset($_GET['act'])) {
                 if ($endPage - $startPage < 5) {
                     $startPage = max(1, $endPage - 5);
                 }
+                if (isset($_GET['del'])) {
+                    if(count_products_category($_GET['del'])[0]['SLSP'] > 0) {
+                        $tb ='<div style="position:relative;top:25px;" class="alert alert-danger" role="alert">Bạn không thể xóa danh mục đã có sản phẩm</div>';
+                    }else {
+                        delete_category($_GET['del']);
+                    header('Location:?mod=admin&act=categories&page=1');
+                    }   
+                } 
             }
             // Cập nhật dữ liệu
             if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -253,6 +261,7 @@ if (isset($_GET['act'])) {
             // lấy dữ liệu
             include_once 'models/m_admin.php';
             include_once 'models/m_user.php';
+            $tb = "";
             $get_Order = get_Order_bill();
             if (isset($_GET['filter'])) {
                 $get_Order = get_Order_bill($_GET['filter']);
@@ -277,6 +286,30 @@ if (isset($_GET['act'])) {
                 $Id_bill = get_OneOrder_bill($Get_Id_Order);
                 $id_User = $Id_bill[0]['id_user'];
                 $name_user = getUserById($id_User);
+                //$getAddress = getAddress($name_user['id']);
+                $get_product_order = get_product_order($Id_bill[0]['id']);
+                $shipping = shipping($Id_bill[0]['id_shipping']);
+                $payment = payment($Id_bill[0]['id_payment']);
+                if (isset($_POST['submit'])) {
+                    $change_status = $_POST['change_status'];
+                    update_Change_status($change_status, $Get_Id_Order);
+                    header('Location:?mod=admin&act=orders');
+                }
+                $getAll = getAllCart();
+                if (isset($_POST['delete_bill'])) {
+                    if(count(check_idbillCart($Get_Id_Order)) > 0) {
+                        $tb ='<div class="alert alert-danger" role="alert">Bạn không thể xóa đơn hàng đã có sản phẩm</div>';
+                    }else {
+                        del_bill($_GET['id']);
+                        header('Location:?mod=admin&act=orders');
+                    }
+                } 
+            }
+            elseif (isset($_GET['detail_id'])) {
+                $Get_Id_Order = $_GET['detail_id'];
+                $Id_bill = get_OneOrder_bill($Get_Id_Order);
+                $id_User = $Id_bill[0]['id_user'];
+                $name_user = getUserById($id_User);
                 $getAddress = getAddress($name_user['id']);
                 $get_product_order = get_product_order($Id_bill[0]['id']);
                 $shipping = shipping($Id_bill[0]['id_shipping']);
@@ -287,11 +320,8 @@ if (isset($_GET['act'])) {
                     header('Location:?mod=admin&act=orders');
                 }
             }
-            if (isset($_POST['delete_bill'])) {
-                del_bill($_GET['id']);
-                header('Location:?mod=admin&act=orders');
-            }
-
+            
+              
 
             //hiển thị dữ liệu  
             $view_name = 'admin_orders';
