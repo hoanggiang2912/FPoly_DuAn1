@@ -178,12 +178,12 @@ if (@isset($_POST['btn_cancelled'])) {
                     $getCmt = getAllComment();
                     if (empty($getCmt)) {
                         ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
-                        </div>
-                    </li>
-                    <?php
+                        <li>
+                            <div class="col-12 d-flex">
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                            </div>
+                        </li>
+                        <?php
                     } else {
                         arsort($getCmt);
                         $getCmt = array_slice($getCmt, 0, 6, true);
@@ -192,33 +192,33 @@ if (@isset($_POST['btn_cancelled'])) {
                             $getUser = getUserById($item['id_user']);
                             $getProduct = getProductById($item['id_product']);
                             ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <div class="col-2">
-                                <?php
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
                                         if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
-                                <?php
+                                            <?php
                                         } else {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                    alt="">
-                                <?php
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
+                                            <?php
                                         }
                                         ?>
-                            </div>
-                            <div class="col-10">
-                                <p class="notifiAdminText body-small"><strong>
-                                        <?php echo $getUser[0]['fullname'] ?>
-                                    </strong><span> đã bình luận ở sản phẩm <strong><a href="">
-                                                <?php echo $getProduct['name'] ?>
-                                            </a></strong></span></p>
-                            </div>
-                        </div>
-                    </li>
-                    <?php
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php echo $getUser[0]['fullname'] ?>
+                                            </strong><span> đã bình luận ở sản phẩm <strong><a href="">
+                                                        <?php echo $getProduct['name'] ?>
+                                                    </a></strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
                         }
                     }
                     ?>
@@ -231,12 +231,12 @@ if (@isset($_POST['btn_cancelled'])) {
                     $getBill = getBill();
                     if (empty($getBill)) {
                         ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
-                        </div>
-                    </li>
-                    <?php
+                        <li>
+                            <div class="col-12 d-flex">
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                            </div>
+                        </li>
+                        <?php
                     } else {
                         arsort($getBill);
                         $getBill = array_slice($getBill, 0, 6, true);
@@ -244,27 +244,27 @@ if (@isset($_POST['btn_cancelled'])) {
 
                             $getUser = getUserById($item['id_user']);
                             ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <div class="col-2">
-                                <?php
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
                                         if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
-                                <?php
+                                            <?php
                                         } else {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                    alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
 
-                                <?php
+                                            <?php
                                         }
                                         ?>
-                            </div>
-                            <div class="col-10">
-                                <p class="notifiAdminText body-small"><strong>
-                                        <?php
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php
                                                 if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
                                                     echo "User ẩn";
 
@@ -273,14 +273,14 @@ if (@isset($_POST['btn_cancelled'])) {
 
                                                 }
                                                 ?>
-                                    </strong><span> vừa mua
-                                        một mô hình với mã đơn hàng <strong>
-                                            <?php echo $item['id'] ?>
-                                        </strong></span></p>
-                            </div>
-                        </div>
-                    </li>
-                    <?php
+                                            </strong><span> vừa mua
+                                                một mô hình với mã đơn hàng <strong>
+                                                    <?php echo $item['id'] ?>
+                                                </strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
                         }
                     }
                     ?>
@@ -292,12 +292,12 @@ if (@isset($_POST['btn_cancelled'])) {
                 $getUser = getUserById($getID);
                 if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
-                <?php
+                    <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
+                    <?php
                 } else {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
-                <?php
+                    <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
+                    <?php
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
@@ -406,13 +406,13 @@ if (@isset($_POST['btn_cancelled'])) {
                                         $upload_file = $upload_dir . $userInfo[0]['img'];
                                         if (empty($userInfo[0]['img']) || $userInfo[0]['img'] == NULL || !file_exists($upload_file)) {
                                             ?>
-                                        <td><img src="./upload/users/anonyUser.png"></td>
-                                        <?php
+                                            <td><img src="./upload/users/anonyUser.png"></td>
+                                            <?php
                                         } else {
                                             ?>
-                                        <td><img src="./upload/users/<?php echo $userInfo[0]['img'] ?>">
-                                        </td>
-                                        <?php
+                                            <td><img src="./upload/users/<?php echo $userInfo[0]['img'] ?>">
+                                            </td>
+                                            <?php
                                         }
 
                                         ?>
@@ -466,13 +466,13 @@ if (@isset($_POST['btn_cancelled'])) {
 </section>
 
 <script>
-document.getElementById('deleteButtonImg').addEventListener('click', function() {
-    this.style.display = 'none';
-    document.querySelector('.poupDashboard').style.display = 'block';
-});
+    document.getElementById('deleteButtonImg').addEventListener('click', function () {
+        this.style.display = 'none';
+        document.querySelector('.poupDashboard').style.display = 'block';
+    });
 
-document.querySelector('.popupDashboard_canc').addEventListener('click', function() {
-    document.querySelector('.poupDashboard').style.display = 'none';
-    document.getElementById('deleteButtonImg').style.display = 'block';
-});
+    document.querySelector('.popupDashboard_canc').addEventListener('click', function () {
+        document.querySelector('.poupDashboard').style.display = 'none';
+        document.getElementById('deleteButtonImg').style.display = 'block';
+    });
 </script>
