@@ -6,17 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && isset($_
     $product_id = $_POST["product_id"];
     $action = $_POST["action"];
 
-    // Retrieve the action and product ID from the AJAX request
-    $action = $_POST['action'];
-    $productID = $_POST['product_id'];
-
     if ($action === "increase") {
         // Increase quantity in session cart
         if (isset($_SESSION['userLogin'])) {
             $idUser = $_SESSION['userLogin']['id_user'];
             $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"] ++;
         } else {
-            $_SESSION["cart"][$product_id]["qty"]++;
+            $_SESSION["cart"]['guest'][$product_id]["qty"]++;
         }
     } elseif ($action === "decrease") {
         // Decrease quantity in session cart, but ensure it doesn't go below 0
@@ -28,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && isset($_
                 $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"] = 1;
             }
         } else {
-            if ($_SESSION["cart"][$product_id]["qty"] > 0) {
-                $_SESSION["cart"][$product_id]["qty"]--;
+            if ($_SESSION["cart"]['guest'][$product_id]["qty"] > 0) {
+                $_SESSION["cart"]['guest'][$product_id]["qty"]--;
             } else {
-                $_SESSION["cart"][$product_id]["qty"] = 1;
+                $_SESSION["cart"]['guest'][$product_id]["qty"] = 1;
             }
         }
     }
@@ -40,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && isset($_
     if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
         $productQty = $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"];
     }  else {
-        $productQty = $_SESSION["cart"][$product_id]["qty"];
+        $productQty = $_SESSION["cart"]['guest'][$product_id]["qty"];
     }
     $response = [
         "success" => true,
