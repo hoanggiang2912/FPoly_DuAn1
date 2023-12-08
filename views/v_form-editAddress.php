@@ -67,7 +67,6 @@
             $phone_input = $_POST["phoneUser"];
             $pattern =  "/^0[2|3|5|6|7|8|9][0-9]{8}$/";
             if (preg_match($pattern, $phone_input) ||  $_POST["phoneUser"] == "") {
-                $phone_user = $phone;
                 upadate_address($name_user, $phone_user, $address_detail, $address_user, $address_default, $id_address);
                 header('location: ?mod=user&act=address');
                 exit;
