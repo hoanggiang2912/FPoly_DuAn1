@@ -15,40 +15,49 @@
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getCmt = getAllComment();
-                    arsort($getCmt);
-                    $getCmt = array_slice($getCmt, 0, 6, true);
-                    foreach ($getCmt as $item) {
-
-                        $getUser = getUserById($item['id_user']);
-                        $getProduct = getProductById($item['id_product']);
+                    if (empty($getCmt)) {
                         ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <div class="col-2">
-                                <?php
+                        <li>
+                            <div class="col-12 d-flex">
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                            </div>
+                        </li>
+                        <?php
+                    } else {
+                        arsort($getCmt);
+                        $getCmt = array_slice($getCmt, 0, 6, true);
+                        foreach ($getCmt as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            $getProduct = getProductById($item['id_product']);
+                            ?>
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
                                         if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
-                                <?php
+                                            <?php
                                         } else {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                    alt="">
-                                <?php
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
+                                            <?php
                                         }
                                         ?>
-                            </div>
-                            <div class="col-10">
-                                <p class="notifiAdminText body-small"><strong>
-                                        <?php echo $getUser[0]['fullname'] ?>
-                                    </strong><span> đã bình luận ở sản phẩm <strong><a href="">
-                                                <?php echo $getProduct['name'] ?>
-                                            </a></strong></span></p>
-                            </div>
-                        </div>
-                    </li>
-                    <?php
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php echo $getUser[0]['fullname'] ?>
+                                            </strong><span> đã bình luận ở sản phẩm <strong><a href="">
+                                                        <?php echo $getProduct['name'] ?>
+                                                    </a></strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
                         }
                     }
                     ?>
@@ -59,49 +68,58 @@
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getBill = getBill();
-                    arsort($getBill);
-                    $getBill = array_slice($getBill, 0, 6, true);
-                    foreach ($getBill as $item) {
-
-                        $getUser = getUserById($item['id_user']);
+                    if (empty($getBill)) {
                         ?>
-                    <li>
-                        <div class="col-12 d-flex">
-                            <div class="col-2">
-                                <?php
+                        <li>
+                            <div class="col-12 d-flex">
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                            </div>
+                        </li>
+                        <?php
+                    } else {
+                        arsort($getBill);
+                        $getBill = array_slice($getBill, 0, 6, true);
+                        foreach ($getBill as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            ?>
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
                                         if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
-                                <?php
+                                            <?php
                                         } else {
                                             ?>
-                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                    alt="">
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
 
-                                <?php
+                                            <?php
                                         }
                                         ?>
-                            </div>
-                            <div class="col-10">
-                                <p class="notifiAdminText body-small"><strong>
-                                        <?php
-                                            if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
-                                                echo "User ẩn";
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php
+                                                if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
+                                                    echo "User ẩn";
 
-                                            } else {
-                                                echo $getUser[0]['fullname'];
+                                                } else {
+                                                    echo $getUser[0]['fullname'];
 
-                                            }
-                                            ?>
-                                    </strong><span> vừa mua
-                                        một mô hình với mã đơn hàng <strong>
-                                            <?php echo $item['id'] ?>
-                                        </strong></span></p>
-                            </div>
-                        </div>
-                    </li>
-                    <?php
+                                                }
+                                                ?>
+                                            </strong><span> vừa mua
+                                                một mô hình với mã đơn hàng <strong>
+                                                    <?php echo $item['id'] ?>
+                                                </strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
                         }
                     }
                     ?>
@@ -113,12 +131,12 @@
                 $getUser = getUserById($getID);
                 if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
-                <?php
+                    <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
+                    <?php
                 } else {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
-                <?php
+                    <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
+                    <?php
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
@@ -284,7 +302,7 @@
                         <?= $getUser[0]['fullname'] ?>
                     </td>
                     <td>
-                        <?= $getPayment['name'] ?>
+                        <?= $getPayment[0]['name'] ?>
                     </td>
                     <td>
                         <?= $value['create_date'] ?>
@@ -307,7 +325,7 @@
                         <a href="?mod=admin&act=orders" style="width:100%;"><span
                                 style="float: inline-end;font-size:20px; cursor: pointer;"
                                 class="close">&times;</span> </a>
-                        <button ><span class="fa-solid fa-print"> printer</span></button>
+                        <button onclick="window.print()" ><span class="fa-solid fa-print"> printer</span></button>
                             <div class="row justify-content-center">
                                 <div class="col-6">
                                    <div class="modal-header" style="padding:60px;">

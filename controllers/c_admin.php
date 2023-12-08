@@ -286,7 +286,7 @@ if (isset($_GET['act'])) {
                 $Id_bill = get_OneOrder_bill($Get_Id_Order);
                 $id_User = $Id_bill[0]['id_user'];
                 $name_user = getUserById($id_User);
-                //$getAddress = getAddress($name_user['id']);
+                $getAddress = getAddress($name_user['id']);
                 $get_product_order = get_product_order($Id_bill[0]['id']);
                 $shipping = shipping($Id_bill[0]['id_shipping']);
                 $payment = payment($Id_bill[0]['id_payment']);
@@ -327,7 +327,7 @@ if (isset($_GET['act'])) {
             $view_name = 'admin_orders';
             break;
 
-        case 'orders-add':
+         case 'orders-add':
             include_once 'models/m_admin.php';
             // lấy dữ liệu
             if (isset($_POST['btn_update_order'])) {
