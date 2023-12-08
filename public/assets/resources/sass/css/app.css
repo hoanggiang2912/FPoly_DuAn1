@@ -5551,6 +5551,7 @@ table tbody tr td a {
   left: 0;
   z-index: 10;
   width: 100%;
+  height: 100%;
   text-align: center;
   background-color: #f1e5e6;
   padding: 30px;
@@ -5575,7 +5576,7 @@ table tbody tr td a {
   background-color: #ffffff;
 }
 .comment__panel .comment__wrapper .poup_item-bg .poup_item p {
-  margin-bottom: 20px !important;
+  margin-bottom: 30px !important;
 }
 .comment__panel .comment__wrapper .comment__item .user__avt img {
   border-radius: 30px;
