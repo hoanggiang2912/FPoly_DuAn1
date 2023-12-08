@@ -945,8 +945,8 @@ foreach ($categories as $item) {
 <!-- category section end -->
 
 <!-- mobile bottom navbar start -->
-<div class="navigation mobile box-shadow5" style="display: flex !important;">
-    <ul>
+<div class="navigation mobile box-shadow5">
+    <ul style="display: flex !important;">
         <li class="list active">
             <a href="?mod=page&act=home">
                 <span class="icon">
