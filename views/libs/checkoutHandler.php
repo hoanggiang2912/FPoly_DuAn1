@@ -25,7 +25,7 @@
             $total = totalBill($userCart);
 
             if (empty($name_recipient)) {
-                $name_recipient = getUserInfo($id)[0]['username'];
+                $name_recipient = getUserInfo($id_user)[0]['username'];
             }
 
             $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total);
@@ -35,13 +35,16 @@
             foreach ($userCart as $product) {
                 extract($product);
                 $totalCost = $price * $qty;
+                /** update product quantity */
                 $productQty = getProductQtyById($id_product);
                 $newQty = $productQty - $qty;
                 updateProductQty($id_product, $newQty);
+                /** update product purchases */
+                $purchases = rand(10, 100);
+                updateProductPurchases($id_product, $purchases);
+                /** update id_bill của những sản phẩm trong bảng cart có id_user bằng với id_user trong userLogin */
+                updateIdBillInCart($id_user, $idBill, $id_product);
             }
-            /** update id_bill của những sản phẩm trong bảng cart có id_user bằng với id_user trong userLogin */
-
-            updateIdBillInCart($id_user, $idBill);
             if (isset($_SESSION['cart'])) {
                 unset($_SESSION['cart']);
             }
@@ -62,9 +65,14 @@
             foreach ($cart as $product) {
                 extract($product);
                 $totalCost = $price * $qty;
+
+                /** update product quantity */
                 $productQty = getProductQtyById($id_product);
                 $newQty = $productQty - $qty;
                 updateProductQty($id_product, $newQty);
+                /** update product purchases */
+                $purchases = rand(10, 100);
+                updateProductPurchases($id_product, $purchases);
                 insertCartWithIdBill($idBill, $id_user, $id_product, $name, $price, $img, $qty, $totalCost);
             }
             unset($_SESSION['cart']);
@@ -83,11 +91,17 @@ function updateProductQty($idProduct, $newQty)
     $sql = "UPDATE product SET qty = $newQty WHERE id = $idProduct";
     pdo_execute($sql);
 }
+function updateProductPurchases($idProduct, $purchases)
+{
+    $sql = "UPDATE product SET purchases = $purchases WHERE id = $idProduct";
+    pdo_execute($sql);
+}
     
 function getUserInfo($id)
 {
     return pdo_query("SELECT * FROM user WHERE id = {$id}");
 }
+
 function insertCartWithIdBill($idBill, $idUser, $id_product, $name, $price, $img, $qty, $totalCost)
 {
     $sql = "INSERT INTO 
@@ -160,11 +174,13 @@ function insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_use
     return $billId;
 }
 
-function updateIdBillInCart($id_user, $id_bill)
+function updateIdBillInCart($id_user, $id_bill, $id_product)
 {
     $sql = "UPDATE cart
             SET id_bill = $id_bill 
-            WHERE id_user = $id_user";
+            WHERE id_user = $id_user
+            AND id_product = $id_product";
+    pdo_execute($sql);
 }
 
 function pdo_get_connection()

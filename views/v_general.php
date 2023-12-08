@@ -1,4 +1,7 @@
 <?php
+    $id = $_SESSION['userLogin']['id_user'];
+    $user = getUserById($id)[0];
+    extract($user);
     // xử lí khi người dùng nhập form
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         if($_POST['username'] != "" && $_POST['email'] != "") {
@@ -218,7 +221,7 @@
         redirectUrl: '?mod=user&act=general',
         rules: [
             Validator.isRequired('.username--input'),
-            Validator.isUsername('.username--input', 'Vui lòng điền tên đăng nhập' , './views/libs/usernameValidator.php'),
+            Validator.isUsernameAlreadyExist('.username--input', 'Vui lòng điền tên đăng nhập' , './views/libs/usernameValidator.php'),
             Validator.isRequired('.email--input' , 'Vui lòng nhập email của bạn.'),
             Validator.isEmail('.email--input'),
             Validator.isEmailAlreadyExist('.email--input' , 'Email này đã tồn tại trên hệ thống' , './views/libs/emailValidator.php'),

@@ -39,7 +39,7 @@
             $cartTotal += $price * $qty;
             $tax = $cartTotal * 0.1;
             $imgPath = constant('PRODUCT_PATH') . $img;
-            $categoryName = getCategoryById(getIdCategoryByIdProducts($id))['name'];
+            $categoryName = getCategoryById(getIdCategoryByIdProducts($id_product))['name'];
             $formatedProductPrice = formatVND($price);
             $priceView = formatVND($item['price'] * $qty);
 
@@ -171,45 +171,47 @@
         <div class="cart__product-wrapper flex-column g20" style="grid-column: span 2">
             <?= $cartHtml ?>
         </div>
-        <div class="summary__main desktop rounded-8 p20 flex-column g12">
-            <div class="block">
-                <div class="flex flex-between v-center">
-                    <div class="title-medium fw-smb">Ưu đãi</div>
-                    <button class="text-btn btn primary-text rounded-100 coupon__open--toggle-btn">
-                        <i class="fal fa-arrow-right"></i>
-                        Nhập mã giảm giá
-                    </button>
-                </div>
-                <form action="#" class="form coupon__form mt12">
-                    <div class="form__group row g12 flex-between">
-                        <input type="text" class="form__input coupon__input flex-full" style="max-width: 100%">
-                        <button type="submit" class="primary-btn rounded-8 btn flex-full">Nhập</button>
+        <div class="block">
+            <div class="summary__main desktop rounded-8 p20 flex-column g12 box-shadow1">
+                <div class="block">
+                    <div class="flex flex-between v-center">
+                        <div class="title-medium fw-smb">Ưu đãi</div>
+                        <button class="text-btn btn primary-text rounded-100 coupon__open--toggle-btn">
+                            <i class="fal fa-arrow-right"></i>
+                            Nhập mã giảm giá
+                        </button>
                     </div>
-                </form>
-            </div>
-            <div class="flex mt12 v-center g12">
-                <div class="title-medium">Thuế: </div>
-                <div class="title medium primary-text fw-bold">10%</div>
-            </div>
-            <div class="flex mt12 v-center g12">
-                <div class="title-medium">Tiền sản phẩm</div>
-                <div class="light-devider flex-full pi20" style="height: .1rem; margin-inline: 1rem;"></div>
-                <div class="title medium primary-text fw-bold cart__total">
-                    <?= formatVND($cartTotal) ?>
+                    <form action="?mod=cart&act=coupon" class="form coupon__form mt12">
+                        <div class="form__group row g12 flex-between">
+                            <input type="text" class="form__input coupon__input flex-full" style="max-width: 100%">
+                            <button type="submit" class="primary-btn rounded-8 btn flex-full">Nhập</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="flex mt12 v-center">
-                <div class="title-large fw-smb">Tổng tiền</div>
-                <div class="light-devider flex-full pi20" style="height: .1rem; margin-inline: 1rem;"></div>
-                <div class="primary-masking-text headline-small cart__total-with-tax">
-                    <?= formatVND($cartTotal + $tax) ?>
+                <div class="flex mt12 v-center g12">
+                    <div class="title-medium">Thuế: </div>
+                    <div class="title medium primary-text fw-bold">10%</div>
                 </div>
+                <div class="flex mt12 v-center g12">
+                    <div class="title-medium">Tiền sản phẩm</div>
+                    <div class="light-devider flex-full pi20" style="height: .1rem; margin-inline: 1rem;"></div>
+                    <div class="title medium primary-text fw-bold cart__total">
+                        <?= formatVND($cartTotal) ?>
+                    </div>
+                </div>
+                <div class="flex mt12 v-center">
+                    <div class="title-large fw-smb">Tổng tiền</div>
+                    <div class="light-devider flex-full pi20" style="height: .1rem; margin-inline: 1rem;"></div>
+                    <div class="primary-masking-text headline-small cart__total-with-tax">
+                        <?= formatVND($cartTotal + $tax) ?>
+                    </div>
+                </div>
+                <a href="<?= $btnLink ?>" class="btn primary-btn rounded-8 ttu summary-btn" id="summary-btn1" style="background: black; color: white;">
+                    <i class="fal fa-arrow-right"></i>
+                    <?= $btnText ?>
+                </a>
+                <!-- summary total end -->
             </div>
-            <a href="<?= $btnLink ?>" class="btn primary-btn rounded-8 ttu summary-btn" id="summary-btn1" style="background: black; color: white;">
-                <i class="fal fa-arrow-right"></i>
-                <?= $btnText ?>
-            </a>
-            <!-- summary total end -->
         </div>
     </div>
 </main>

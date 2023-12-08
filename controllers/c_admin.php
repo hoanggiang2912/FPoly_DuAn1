@@ -6,6 +6,7 @@ require_once './models/m_user.php';
 require_once './models/m_comment.php';
 require_once './models/m_coupon.php';
 require_once './models/m_address.php';
+require_once './models/m_bill.php';
 
 // Hiển thị dữ liệu thông qua view
 
@@ -388,7 +389,9 @@ if (isset($_GET['act'])) {
             $getAllCategory = getCategories();
             $perPage = 9;
             $soTrang = ceil($totalProducts / $perPage);
+            // giá trị hiện tại trang trừ đi -2 nhưng nhỏ hơn 1
             $startPage = max(1, $page - 2);
+            // kết thúc phạm vi trang, số lượt hiển thị trang là 5, nhưng không lớn hơn tổng số trang
             $endPage = min($startPage + 5, $soTrang);
 
             if ($endPage - $startPage < 5) {
@@ -403,7 +406,6 @@ if (isset($_GET['act'])) {
             include_once 'models/m_category.php';
 
             // lấy dữ liệu
-
             if (isset($_POST['id'])) {
                 // Chuyển từ phương thức POST sang GET
                 header("location: ?mod=admin&act=products-category-fil&id=" . $_POST['id'] . "");

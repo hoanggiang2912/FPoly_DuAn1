@@ -154,6 +154,15 @@ Validator.isEmail = (selector , message) => {
         }
     }
 }
+Validator.isCoupon = (selector , message) => {
+    return {
+        selector,
+        test (value) {
+            const regex = /^[a-zA-Z0-9]{10}$/;
+            return regex.test(value) ? undefined : message || 'Mã không hợp lệ!' 
+        }
+    }
+}
 Validator.isEmailAlreadyExist = function (selector, message , url) {
     return {
         selector: selector,

@@ -8,21 +8,21 @@ $totalSales = 0;
 $totalUser = 0;
 $totalCmt = 0;
 $totalQuan = 0;
-foreach($getTotalBill as $item) {
-    if($item['status'] == 4) {
+foreach ($getTotalBill as $item) {
+    if ($item['status'] == 5) {
         $totalBill += $item['total'];
     }
 }
-foreach($getProduct as $item) {
+foreach ($getProduct as $item) {
     $totalSales += $item['purchases'];
 }
-foreach($getProduct as $item) {
+foreach ($getProduct as $item) {
     $totalQuan += $item['qty'];
 }
-foreach($getUser as $item) {
+foreach ($getUser as $item) {
     $totalUser++;
 }
-foreach($getCmt as $item) {
+foreach ($getCmt as $item) {
     $totalCmt++;
 }
 
@@ -44,40 +44,50 @@ foreach($getCmt as $item) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getCmt = getAllComment();
-                    arsort($getCmt);
-                    $getCmt = array_slice($getCmt, 0, 6, true);
-                    foreach($getCmt as $item) {
-
-                        $getUser = getUserById($item['id_user']);
-                        $getProduct = getProductById($item['id_product']);
+                    if (empty($getCmt)) {
                         ?>
-                        <li>
-                            <div class="col-12 d-flex">
-                                <div class="col-2">
-                                    <?php
-                                    if($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getCmt);
+                        $getCmt = array_slice($getCmt, 0, 6, true);
+                        foreach ($getCmt as $item) {
 
-                                        <?php
-                                    } else {
+                            $getUser = getUserById($item['id_user']);
+                            $getProduct = getProductById($item['id_product']);
+                            ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <div class="col-2">
+                                <?php
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
+                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+
+                                <?php
+                                        } else {
+                                            ?>
+                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                    alt="">
+                                <?php
+                                        }
                                         ?>
-                                        <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                            alt="">
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <div class="col-10">
-                                    <p class="notifiAdminText body-small"><strong>
-                                            <?php echo $getUser[0]['fullname'] ?>
-                                        </strong><span> đã bình luận ở sản phẩm <strong><a href="">
-                                                    <?php echo $getProduct['name'] ?>
-                                                </a></strong></span></p>
-                                </div>
                             </div>
-                        </li>
-                        <?php
+                            <div class="col-10">
+                                <p class="notifiAdminText body-small"><strong>
+                                        <?php echo $getUser[0]['fullname'] ?>
+                                    </strong><span> đã bình luận ở sản phẩm <strong><a href="">
+                                                <?php echo $getProduct['name'] ?>
+                                            </a></strong></span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -87,66 +97,75 @@ foreach($getCmt as $item) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getBill = getBill();
-                    arsort($getBill);
-                    $getBill = array_slice($getBill, 0, 6, true);
-                    foreach($getBill as $item) {
-
-                        $getUser = getUserById($item['id_user']);
+                    if (empty($getBill)) {
                         ?>
-                        <li>
-                            <div class="col-12 d-flex">
-                                <div class="col-2">
-                                    <?php
-                                    if($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getBill);
+                        $getBill = array_slice($getBill, 0, 6, true);
+                        foreach ($getBill as $item) {
 
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                            alt="">
-
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <div class="col-10">
-                                    <p class="notifiAdminText body-small"><strong>
-                                            <?php
-                                            if($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
-                                                echo "User ẩn";
-
-                                            } else {
-                                                echo $getUser[0]['fullname'];
-
-                                            }
+                            $getUser = getUserById($item['id_user']);
+                            ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <div class="col-2">
+                                <?php
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
                                             ?>
-                                        </strong><span> vừa mua
-                                            một mô hình với mã đơn hàng <strong>
-                                                <?php echo $item['id'] ?>
-                                            </strong></span></p>
-                                </div>
+                                <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+
+                                <?php
+                                        } else {
+                                            ?>
+                                <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                    alt="">
+
+                                <?php
+                                        }
+                                        ?>
                             </div>
-                        </li>
-                        <?php
+                            <div class="col-10">
+                                <p class="notifiAdminText body-small"><strong>
+                                        <?php
+                                                if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
+                                                    echo "User ẩn";
+
+                                                } else {
+                                                    echo $getUser[0]['fullname'];
+
+                                                }
+                                                ?>
+                                    </strong><span> vừa mua
+                                        một mô hình với mã đơn hàng <strong>
+                                            <?php echo $item['id'] ?>
+                                        </strong></span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <?php
+                        }
                     }
                     ?>
-
                 </ul>
             </div>
             <div class="imgUserAdmin">
                 <?php
                 $getID = $_SESSION['admin']['id_user'];
                 $getUser = getUserById($getID);
-                if(!empty($getUser['img']) && $getUser != NULL) {
+                if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                    <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser['img'] ?>" alt="">
-                    <?php
+                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
+                <?php
                 } else {
                     ?>
-                    <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
-                    <?php
+                <img style="" class="btnShowFeature" src="./upload/users/avatar-none.png" alt="">
+                <?php
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
@@ -381,70 +400,80 @@ foreach($getCmt as $item) {
                                 $bill = getBill();
                                 $totalByUser = array();
                                 $orderCountByUser = array();
-
-                                foreach($bill as $item) {
-                                    if($item['status'] == 5) {
-                                        if(!isset($totalByUser[$item['id_user']])) {
-                                            $totalByUser[$item['id_user']] = 0;
-                                            $orderCountByUser[$item['id_user']] = 0;
-                                        }
-                                        $totalByUser[$item['id_user']] += $item['total'];
-                                        $orderCountByUser[$item['id_user']]++;
-                                    }
-                                }
-                                // Sắp xếp mảng theo thứ tự giảm dần
-                                arsort($totalByUser);
-
-                                // Lấy 6 phần tử đầu tiên
-                                $totalByUser = array_slice($totalByUser, 0, 5, true);
-
-                                foreach($totalByUser as $userId => $total) {
-
-                                    $user = getUserById($userId);
+                                if (empty($bill)) {
                                     ?>
-                                    <div class="topUserOder_items">
-                                        <div class="col-12 d-flex justify-content-between align-content-center">
-                                            <div class="col-6 d-flex ">
-                                                <div class="topUserOrder__image mr6">
-                                                    <?php
-                                                    $upload_dir = './upload/users/';
-                                                    //Đường dẫn của file sau khi upload
-                                                    $upload_file = $upload_dir.$user[0]['img'];
-                                                    if(empty($user[0]['img']) || $user[0]['img'] == NULL || !file_exists($upload_file)) {
-                                                        ?>
-                                                        <img src="./upload/users/avatar-none.png" alt="">
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <img src="./upload/users/<?php echo $user[0]['img'] ?>" alt="">
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </div>
-                                                <div class="topUserOrder__info">
-                                                    <div class="topUserOrder__name body-large">
-                                                        <?php if($user[0]['fullname'] == NULL && !empty($user[0]['fullname'])) {
-                                                            echo $user[0]['username'];
+                                <div class="topUserOder_items">
+                                    <div class="col-12 d-flex justify-content-between align-items-center">
+                                        <p class="title-medium text-center col-12">Hiện dang không có dữ liệu nào</p>
+                                        </p>
+                                    </div>
+                                </div>
+                                <?php
+                                } else {
+                                    foreach ($bill as $item) {
+                                        if ($item['status'] == 5) {
+                                            if (!isset($totalByUser[$item['id_user']])) {
+                                                $totalByUser[$item['id_user']] = 0;
+                                                $orderCountByUser[$item['id_user']] = 0;
+                                            }
+                                            $totalByUser[$item['id_user']] += $item['total'];
+                                            $orderCountByUser[$item['id_user']]++;
+                                        }
+                                    }
+                                    // Sắp xếp mảng theo thứ tự giảm dần
+                                    arsort($totalByUser);
+
+                                    // Lấy 6 phần tử đầu tiên
+                                    $totalByUser = array_slice($totalByUser, 0, 5, true);
+
+                                    foreach ($totalByUser as $userId => $total) {
+
+                                        $user = getUserById($userId);
+                                        ?>
+                                <div class="topUserOder_items">
+                                    <div class="col-12 d-flex justify-content-between align-content-center">
+                                        <div class="col-6 d-flex ">
+                                            <div class="topUserOrder__image mr6">
+                                                <?php
+                                                        $upload_dir = './upload/users/';
+                                                        //Đường dẫn của file sau khi upload
+                                                        $upload_file = $upload_dir . $user[0]['img'];
+                                                        if (empty($user[0]['img']) || $user[0]['img'] == NULL || !file_exists($upload_file)) {
+                                                            ?>
+                                                <img src="./upload/users/avatar-none.png" alt="">
+                                                <?php
                                                         } else {
-                                                            echo $user[0]['fullname'];
-                                                        } ?>
-                                                    </div>
-                                                    <div class="topUserOrder__role label-medium">Thành Viên Vip</div>
-                                                </div>
+                                                            ?>
+                                                <img src="./upload/users/<?php echo $user[0]['img'] ?>" alt="">
+                                                <?php
+                                                        }
+                                                        ?>
                                             </div>
-                                            <div class="col-6 text-end">
-                                                <div class="topUserOrder_Spend">
-                                                    <div class="topUserOrder_totalPayed title-medium">
-                                                        <?php echo number_format($total) ?> VNĐ
-                                                    </div>
-                                                    <div class="topUserOrder_totalOrdered label-medium">
-                                                        <?php echo $orderCountByUser[$userId] ?> orders
-                                                    </div>
+                                            <div class="topUserOrder__info">
+                                                <div class="topUserOrder__name body-large">
+                                                    <?php if ($user[0]['fullname'] == NULL && !empty($user[0]['fullname'])) {
+                                                                echo $user[0]['username'];
+                                                            } else {
+                                                                echo $user[0]['fullname'];
+                                                            } ?>
+                                                </div>
+                                                <div class="topUserOrder__role label-medium">Thành Viên Vip</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <div class="topUserOrder_Spend">
+                                                <div class="topUserOrder_totalPayed title-medium">
+                                                    <?php echo number_format($total) ?> VNĐ
+                                                </div>
+                                                <div class="topUserOrder_totalOrdered label-medium">
+                                                    <?php echo $orderCountByUser[$userId] ?> orders
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <?php
+                                </div>
+                                <?php
+                                    }
                                 }
                                 ?>
                             </div>
@@ -528,8 +557,8 @@ foreach($getCmt as $item) {
                         </tr>
                         <?php
 
-                    }
-                    ?>
+                                        }
+                                        ?>
                 </table>
             </div>
 
@@ -549,7 +578,8 @@ foreach($getCmt as $item) {
                                         <i class="fas fa-ellipsis-v"></i>
                                     </button>
                                     <ul class="showMoreInfoAdminDashboard box-shadow1">
-                                        <li class=""><a class="title-medium" href="">Xem Chi Tiết</a></li>
+                                        <li class=""><a class="title-medium" href="">Xem Chi
+                                                Tiết</a></li>
                                     </ul>
                                 </div>
 
@@ -606,7 +636,8 @@ foreach($getCmt as $item) {
                                         <i class="fas fa-ellipsis-v"></i>
                                     </button>
                                     <ul class="showMoreInfoAdminDashboard box-shadow1">
-                                        <li class=""><a class="title-medium" href="">Xem Chi Tiết</a></li>
+                                        <li class=""><a class="title-medium" href="">Xem Chi
+                                                Tiết</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -614,51 +645,51 @@ foreach($getCmt as $item) {
                             <div class="ordertopProduct">
                                 <div class="ordertopProduct_items">
                                     <?php
-                                    $products = getProducts();
-                                    $totalByProduct = array();
-                                    $orderCountByUser = array();
+                                                        $products = getProducts();
+                                                        $totalByProduct = array();
+                                                        $orderCountByUser = array();
 
-                                    foreach($products as $item) {
-                                        if(!isset($totalByProduct[$item['id']])) {
-                                            $totalByProduct[$item['id']] = 0;
-                                            $orderCountByUser[$item['id']] = 0;
-                                        }
-                                        $totalByProduct[$item['id']] += $item['price'] * $item['purchases'];
-                                        $orderCountByUser[$item['id']] += $item['purchases'];
-                                    }
+                                                        foreach ($products as $item) {
+                                                            if (!isset($totalByProduct[$item['id']])) {
+                                                                $totalByProduct[$item['id']] = 0;
+                                                                $orderCountByUser[$item['id']] = 0;
+                                                            }
+                                                            $totalByProduct[$item['id']] += $item['price'] * $item['purchases'];
+                                                            $orderCountByUser[$item['id']] += $item['purchases'];
+                                                        }
 
-                                    // Sắp xếp mảng theo thứ tự giảm dần
-                                    arsort($totalByProduct);
+                                                        // Sắp xếp mảng theo thứ tự giảm dần
+                                                        arsort($totalByProduct);
 
-                                    // Lấy 6 phần tử đầu tiên
-                                    $totalByProduct = array_slice($totalByProduct, 0, 6, true);
+                                                        // Lấy 6 phần tử đầu tiên
+                                                        $totalByProduct = array_slice($totalByProduct, 0, 6, true);
 
-                                    foreach($totalByProduct as $productId => $total) {
-                                        $product = getProductById($productId);
-                                        ?>
-                                        <div class="ordertopProduct_item">
-                                            <div class="col-12 d-flex justify-content-between">
-                                                <div class="col-6 nameCategories">
-                                                    <h2 class="body-large">
-                                                        <?php echo $product['name'] ?>
-                                                    </h2>
-                                                    <p class="label-medium">Danh mục: <span>
-                                                            <?php echo getCategoryById($product['id_category'])['name'] ?>
-                                                        </span></p>
-                                                </div>
-                                                <div class="col-6 priceProduct">
-                                                    <h2 class="body-large">
-                                                        <?php echo number_format($total) ?> VNĐ
-                                                    </h2>
-                                                    <p class="label-medium">
-                                                        <?php echo $orderCountByUser[$productId] ?> đã mua
-                                                    </p>
-                                                </div>
+                                                        foreach ($totalByProduct as $productId => $total) {
+                                                            $product = getProductById($productId);
+                                                            ?>
+                                    <div class="ordertopProduct_item">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <div class="col-6 nameCategories">
+                                                <h2 class="body-large">
+                                                    <?php echo $product['name'] ?>
+                                                </h2>
+                                                <p class="label-medium">Danh mục: <span>
+                                                        <?php echo getCategoryById($product['id_category'])['name'] ?>
+                                                    </span></p>
+                                            </div>
+                                            <div class="col-6 priceProduct">
+                                                <h2 class="body-large">
+                                                    <?php echo number_format($total) ?> VNĐ
+                                                </h2>
+                                                <p class="label-medium">
+                                                    <?php echo $orderCountByUser[$productId] ?> đã mua
+                                                </p>
                                             </div>
                                         </div>
-                                        <?php
-                                    }
-                                    ?>
+                                    </div>
+                                    <?php
+                                                        }
+                                                        ?>
 
                                 </div>
                             </div>
@@ -675,7 +706,8 @@ foreach($getCmt as $item) {
                                         <i class="fas fa-ellipsis-v"></i>
                                     </button>
                                     <ul class="showMoreInfoAdminDashboard box-shadow1">
-                                        <li class=""><a class="title-medium" href="">Xem Chi Tiết</a></li>
+                                        <li class=""><a class="title-medium" href="">Xem
+                                                Chi Tiết</a></li>
                                     </ul>
                                 </div>
 

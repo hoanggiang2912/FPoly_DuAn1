@@ -42,14 +42,9 @@ if (isset($_POST['btn_update'])) {
     if (!empty($_POST['email'])) {
         $email = $_POST['email'];
     } else {
-        $error['email'] = "Không được để trống số điện thoại";
+        $error['email'] = "Không được để trống email";
     }
 
-    if (!empty($_POST['address'])) {
-        $address = $_POST['address'];
-    } else {
-        $error['address'] = "Không được để trống địa chỉ";
-    }
 
     $role = $_POST['role'];
     $bio = $_POST['bio'];
@@ -62,6 +57,8 @@ if (isset($_POST['btn_update'])) {
         $type_allow = array('png', 'jpg', 'jpeg', 'gif');
         //PATHINFO_EXTENSION lấy đuôi file
         $type = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+        $filename = pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME);
+
         // echo $type;
         if (!in_array(strtolower($type), $type_allow)) {
             $error['type'] = "Chỉ được upload file có đuôi PNG, JPG, GIF, JPEG";
@@ -79,7 +76,6 @@ if (isset($_POST['btn_update'])) {
 
             #Tạo file mới
             // TênFile.ĐuôiFile
-            $filename = pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME);
             $new_filename = $filename . '- Copy.';
             $new_upload_file = $upload_dir . $new_filename . $type;
             $k = 1;
@@ -89,18 +85,22 @@ if (isset($_POST['btn_update'])) {
                 $new_upload_file = $upload_dir . $new_filename . $type;
             }
             $upload_file = $new_upload_file;
+            $filename = $new_filename;
         }
 
 
-        if (empty($error)) {
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
-                $image = $new_filename . $type;
-                addUserProfile($fullname, $username, $password, $email, $address, $image, $role, $bio, $phone);
 
-                header("Location: ?mod=admin&act=client");
-            } else {
-                echo "Upload file thất bại";
-            }
+    } else {
+        $error['img'] = "Không được để trống ảnh";
+    }
+    if (empty($error)) {
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
+            $image = $filename . $type;
+            addUserProfile($fullname, $username, $password, $email, $address, $image, $role, $bio, $phone);
+
+            header("Location: ?mod=admin&act=client");
+        } else {
+            echo "Upload file thất bại";
         }
     }
     // if (empty($error)) {
@@ -120,7 +120,7 @@ if (@isset($_POST['btn_cancelled'])) {
         <div class="search-box">
             <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
                 <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm...">
+                <input type="text" placeholder="Tìm kiếm..." disabled="disabled">
             </form>
         </div>
         <div class="info-user">
@@ -129,29 +129,38 @@ if (@isset($_POST['btn_cancelled'])) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getCmt = getAllComment();
-                    arsort($getCmt);
-                    $getCmt = array_slice($getCmt, 0, 6, true);
-                    foreach ($getCmt as $item) {
-
-                        $getUser = getUserById($item['id_user']);
-                        $getProduct = getProductById($item['id_product']);
+                    if (empty($getCmt)) {
                         ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getCmt);
+                        $getCmt = array_slice($getCmt, 0, 6, true);
+                        foreach ($getCmt as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            $getProduct = getProductById($item['id_product']);
+                            ?>
                     <li>
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
@@ -163,6 +172,7 @@ if (@isset($_POST['btn_cancelled'])) {
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -172,41 +182,50 @@ if (@isset($_POST['btn_cancelled'])) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getBill = getBill();
-                    arsort($getBill);
-                    $getBill = array_slice($getBill, 0, 6, true);
-                    foreach ($getBill as $item) {
-
-                        $getUser = getUserById($item['id_user']);
+                    if (empty($getBill)) {
                         ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getBill);
+                        $getBill = array_slice($getBill, 0, 6, true);
+                        foreach ($getBill as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            ?>
                     <li>
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
 
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
                                         <?php
-                                            if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
-                                                echo "User ẩn";
+                                                if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
+                                                    echo "User ẩn";
 
-                                            } else {
-                                                echo $getUser[0]['fullname'];
+                                                } else {
+                                                    echo $getUser[0]['fullname'];
 
-                                            }
-                                            ?>
+                                                }
+                                                ?>
                                     </strong><span> vừa mua
                                         một mô hình với mã đơn hàng <strong>
                                             <?php echo $item['id'] ?>
@@ -215,18 +234,18 @@ if (@isset($_POST['btn_cancelled'])) {
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
-
                 </ul>
             </div>
             <div class="imgUserAdmin">
                 <?php
                 $getID = $_SESSION['admin']['id_user'];
                 $getUser = getUserById($getID);
-                if (!empty($getUser['img']) && $getUser != NULL) {
+                if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser['img'] ?>" alt="">
+                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
                 <?php
                 } else {
                     ?>
@@ -235,10 +254,6 @@ if (@isset($_POST['btn_cancelled'])) {
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
-
-                    <li><a class="body-small" href="#statisticalChart">Thống kê đơn hàng</a></li>
-                    <li><a class="body-small" href="#recentOrder">Đơn Hàng Gần Đây</a></li>
-                    <li><a class="body-small" href="#overviewDashboard">Tổng quan</a></li>
                     <li><a class="body-small" href="?mod=user&act=logOut-account">Đăng Xuất</a></li>
                 </ul>
             </div>
@@ -284,54 +299,54 @@ if (@isset($_POST['btn_cancelled'])) {
                             <input name="username" class="" type="text" placeholder="Nhập Tên Đăng Nhập"
                                 aria-label="default input example">
                             <?php
-                                    if (isset($error['username']) && !empty($error['username']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['username']}</p>";
-                                    ?>
+                            if (isset($error['username']) && !empty($error['username']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['username']}</p>";
+                            ?>
                         </div>
                         <div class="left-order-add-create">
                             <h2>Mật Khẩu</h2>
                             <input name="password" class="" type="password" placeholder="Nhập Mật Khẩu"
                                 aria-label="default input example">
                             <?php
-                                    if (isset($error['password']) && !empty($error['password']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['password']}</p>";
-                                    ?>
+                            if (isset($error['password']) && !empty($error['password']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['password']}</p>";
+                            ?>
                         </div>
                         <div class="left-order-add-create">
                             <h2>Email</h2>
                             <input name="email" class="" type="email" placeholder="Email"
                                 aria-label="default input example">
                             <?php
-                                    if (isset($error['email']) && !empty($error['email']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['email']}</p>";
-                                    ?>
+                            if (isset($error['email']) && !empty($error['email']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['email']}</p>";
+                            ?>
                         </div>
                         <div class="left-order-add-create">
                             <h2>Số điện thoại</h2>
                             <input name="phone" class="" type="number" placeholder="Nhập Số Điện Thoại"
                                 aria-label="default input example">
                             <?php
-                                    if (isset($error['phone']) && !empty($error['phone']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['phone']}</p>";
-                                    ?>
+                            if (isset($error['phone']) && !empty($error['phone']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['phone']}</p>";
+                            ?>
                         </div>
                         <div class="left-order-add-create">
                             <h2>Địa Chỉ</h2>
                             <input name="address" class="" type="text" placeholder="Nhập Địa chỉ"
                                 aria-label="default input example">
                             <?php
-                                    if (isset($error['address']) && !empty($error['address']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['address']}</p>";
-                                    ?>
+                            if (isset($error['address']) && !empty($error['address']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['address']}</p>";
+                            ?>
                         </div>
                         <div class="describe-order_detail">
                             <h2>Mô Tả</h2>
                             <textarea name="bio" id="" cols="30" rows="10"
                                 placeholder="Nhập mô tả người dùng"></textarea>
                             <?php
-                                    if (isset($error['bio']) && !empty($error['bio']))
-                                        echo "<p class='text-danger text-error title-medium'>{$error['bio']}</p>";
-                                    ?>
+                            if (isset($error['bio']) && !empty($error['bio']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['bio']}</p>";
+                            ?>
                         </div>
 
                         <div class="Dropdowns_categogy">
@@ -349,16 +364,17 @@ if (@isset($_POST['btn_cancelled'])) {
                     <div class="col-5 col-md">
                         <div class="right-order-add-create p30 d-flex justify-content-center flex-column ">
                             <div class="img_order-add-create rounded-4">
-                                <!-- <img src="../public/assets/media/images/product/00e8115d9521e69a31f8ee479cb7814e6cdb0b49550b8f06d49a21fd.jpg" alt=""> -->
-                                <img src="./upload/users/<?php echo $userInfo[0]['img'] ?>">
-
                             </div>
                             <hr>
                             <div style="width: 100%;" id="drop-area">
                                 <h3>Kéo thả ảnh ở đây</h3>
                                 <input name="file" type="file" id="fileInput">
                             </div>
-
+                            <?php
+                            if (isset($error['img']) && !empty($error['img']))
+                                echo "<p class='text-danger text-error title-medium'>{$error['img']}</p>";
+                            ?>
+                            ?>
                             <div style="width: 100%;" id="demo" class="demo .box-shadow1">
 
                             </div>

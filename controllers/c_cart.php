@@ -147,6 +147,7 @@ if (isset($_GET['act'])) {
                     'id_product' => $product_id
                 ];
                 $_SESSION['checkoutProduct'] = $checkoutProduct;
+                // print_r($_SESSION['checkoutProduct']);
             }
             $view_name = 'checkoutBuyNow';
             break;
@@ -164,6 +165,10 @@ if (isset($_GET['act'])) {
                 header("Location: ?mod=cart&act=viewCart");
                 exit();
             }
+            break;
+
+        case 'coupon':
+            
             break;
         default:
 

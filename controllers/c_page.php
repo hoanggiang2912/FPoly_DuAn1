@@ -230,10 +230,23 @@ if (isset($_GET['act'])) {
             include_once 'models/m_category.php';
             include_once 'models/m_img.php';
             include_once 'models/m_comment.php';
+            include_once 'models/m_address.php';
             
             $view_name = 'productDetail';
 
 
+            break;
+        case 'search':
+
+            $view_name = 'searchMobile';
+            break;
+        case 'contact':
+
+            $view_name = 'contact';
+            break;
+        case 'aboutUs':
+
+            $view_name = 'aboutUs';
             break;
         default:
 

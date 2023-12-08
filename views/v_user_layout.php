@@ -1,34 +1,34 @@
 <?php
-    require_once 'models/m_user.php';
-    if(isset($_SESSION['userLogin']['id_user']) && (is_array($_SESSION['userLogin']['id_user']) || is_object($_SESSION['userLogin']['id_user']) && count($_SESSION['userLogin']['id_user']) > 0)){
-        extract($_SESSION['userLogin']['id_user']);
-        $_SESSION['id_user'] = $id_user;
-        if(is_array(checkAccount($id_user))) {
-            extract(checkAccount($id_user));
-        }
+require_once 'models/m_user.php';
+if(isset($_SESSION['userLogin']['id_user']) && (is_array($_SESSION['userLogin']['id_user']) || is_object($_SESSION['userLogin']['id_user']) && count($_SESSION['userLogin']['id_user']) > 0)) {
+    extract($_SESSION['userLogin']['id_user']);
+    $_SESSION['id_user'] = $id_user;
+    if(is_array(checkAccount($id_user))) {
+        extract(checkAccount($id_user));
     }
+}
 ?>
-<?php 
-    /** header nav rendering */
-    $subnavHtml = '';
-    $categories = getCategories();
-    foreach ($categories as $item) {
-        extract($item);
-        $link = "?mod=page&act=product&idCategory=$id";
-        $products = getProductsByCategoryId($id, 1, 3);
+<?php
+/** header nav rendering */
+$subnavHtml = '';
+$categories = getCategories();
+foreach($categories as $item) {
+    extract($item);
+    $link = "?mod=page&act=product&idCategory=$id";
+    $products = getProductsByCategoryId($id, 1, 3);
 
-        $productHtml = '';
-        foreach ($products as $product) {
-            extract($product);
-            $link = "?mod=page&act=productDetail&idProduct=$id";
-            
-            $productHtml .=
-                <<<HTML
+    $productHtml = '';
+    foreach($products as $product) {
+        extract($product);
+        $link = "?mod=page&act=productDetail&idProduct=$id";
+
+        $productHtml .=
+            <<<HTML
                     <li class="mega-menu__nav--item"><a href="$link" class="mega-menu__nav--link body-large">$name</a></li>
                 HTML;
-        }
-        
-        $subnavHtml .= 
+    }
+
+    $subnavHtml .=
         <<<HTML
             <ul class="mega-menu__nav">
                 <h4 class="title-large fw-black">$item[name]</h4>
@@ -37,19 +37,18 @@
                 </div>
             </ul>
         HTML;
-    }
+}
 
-    // render special product in mega menu
-    $specialProduct = getSpecialProduct();
+// render special product in mega menu
+$specialProduct = getSpecialProduct();
 
-    /** render user widget */
-    $userWidgetHtml = '';
-    if (isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
-        $id = $_SESSION['userLogin']['id_user'];
-        $user = getUserById($id)[0];
-        extract($user);
-
-        $userWidgetHtml =
+/** render user widget */
+$userWidgetHtml = '';
+if(isset($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
+    $id = $_SESSION['userLogin']['id_user'];
+    $user = getUserById($id)[0];
+    extract($user);
+    $userWidgetHtml =
         <<<HTML
             <a href="#" class="user-widget flex flex-center g6">
                 <i class="fal fa-user user-widget__icon"></i>
@@ -76,12 +75,12 @@
                 </ul>
             </div>
         HTML;
-    } else {
-        $userWidgetHtml = 
+} else {
+    $userWidgetHtml =
         <<<HTML
             <a href="?mod=page&act=login" class="btn primary-btn">Đăng ký ngay</a>
         HTML;
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -150,12 +149,14 @@
                                     <div class="title-large fw-bold primary-masking-text">Hot deal! Sale off 20%</div>
                                     <div class="product mt12">
                                         <a href="#" class="product__banner oh banner-contain rounded-8 por"
-                                            style="background-image: url('<?= constant('PRODUCT_PATH') . $specialProduct['img'] ?>')">
+                                            style="background-image: url('<?= constant('PRODUCT_PATH').$specialProduct['img'] ?>')">
                                             <div class="product__overlay poa flex-center">
                                                 <div class="flex g12 in-stock__btn-set">
                                                     <button class="icon-btn"><i class="fal fa-share-alt"></i></button>
-                                                    <button class="icon-btn love-btn"><i class="fa fa-heart"></i></button>
-                                                    <button class="icon-btn"><i class="fal fa-shopping-cart"></i></button>
+                                                    <button class="icon-btn love-btn"><i
+                                                            class="fa fa-heart"></i></button>
+                                                    <button class="icon-btn"><i
+                                                            class="fal fa-shopping-cart"></i></button>
                                                 </div>
                                                 <!-- <div class="flex g12 sold-out__btn-set">
                                                     <button class="icon-btn"><i class="fal fa-share-alt"></i></button>
@@ -165,11 +166,16 @@
                                             </div>
                                         </a>
                                         <a href="#" class="product__info">
-                                            <div class="product__info__name title-medium fw-smb"><?= $specialProduct['name'] ?></div>
-                                            <div class="product__info__price body-medium"><?= formatVND($specialProduct['price']) ?></div>
+                                            <div class="product__info__name title-medium fw-smb">
+                                                <?= $specialProduct['name'] ?>
+                                            </div>
+                                            <div class="product__info__price body-medium">
+                                                <?= formatVND($specialProduct['price']) ?>
+                                            </div>
                                         </a>
                                         <div class="product__info flex-between width-full">
-                                            <div class="product__info__view body-medium"><?= formatViewsNumber($specialProduct['price']) ?> views</div>
+                                            <div class="product__info__view body-medium">
+                                                <?= formatViewsNumber($specialProduct['price']) ?> views</div>
                                             <div class="product__info__rated flex g6 v-center body-medium">
                                                 4.4 <i class="fa fa-star start"></i>
                                             </div>
@@ -227,7 +233,8 @@
                 <!-- header respon nav start -->
                 <ul class="header__nav header__nav-respon">
                     <li class="header__nav__item header__nav-respon__item">
-                        <a href="?mod=cart&act=viewCart" class="icon-btn open-respon-btn"><i class="fal fa-shopping-cart"></i></a>
+                        <a href="?mod=cart&act=viewCart" class="icon-btn open-respon-btn"><i
+                                class="fal fa-shopping-cart"></i></a>
                     </li>
                 </ul>
                 <!-- header respon nav end -->
@@ -241,32 +248,15 @@
                 </button>
                 <form action="?mod=page&act=search" class="form search__form" method="get">
                     <div class="form__group flex-center por">
-                        <input type="text" name="query" class="form__input search__form__input" placeholder="Nhập tên sản phẩm">
+                        <input type="text" name="query" class="form__input search__form__input"
+                            placeholder="Nhập tên sản phẩm">
                         <button type="submit" class="icon-btn search__form__btn"><i class="far fa-search"></i></button>
                     </div>
                 </form>
-                <div class="search__product__wrapper mia flex-column g16" style="overflow-y: auto; width: 50vw; height: 50rem">
+                <div class="search__product__wrapper mia flex-column g16"
+                    style="overflow-y: auto; width: 50vw; height: 50rem">
                     <!-- single search product start -->
-                    <!-- <div class="search__product flex-between p20 rounded-8 width-full">
-                        <div class="flex g12">
-                            <div class="search__product__banner">
-                                <img src="./public/assets/media/images/product/v944cyfrwt851.webp" alt="">
-                            </div>
-                            <div class="search__product__info flex-column flex-between">
-                                <a href="" class="search__product__name title-large underline">Itachi - Susano
-                                    Ribcage</a>
-                                <div class="search__product__price title-medium">2.344.900 VND</div>
-                            </div>
-                        </div>
-                        <div class="flex-between flex-column a-end">
-                            <button class="icon-btn delete-search-product__btn"><i class="fal fa-times"></i></button>
-                            <div class="flex g12">
-                                <button class="icon-btn"><i class="fal fa-share"></i></button>
-                                <button class="icon-btn love-btn toggle-btn"><i class="fal fa-heart"></i></button>
-                                <button class="icon-btn"><i class="fal fa-shopping-cart"></i></button>
-                            </div>
-                        </div>
-                    </div> -->
+                    
                     <!-- single search product end -->
                 </div>
             </div>
@@ -281,16 +271,16 @@
                 <button class="icon-btn close-respon-btn"><i class="fal fa-times"></i></button>
             </li>
             <li class="header__nav-respon-full__item flex-between">
-                <a href="#" class="header__nav-respon-full__link">Trang chủ</a>
+                <a href="?mod=page&act=home" class="header__nav-respon-full__link">Trang chủ</a>
             </li>
             <li class="header__nav-respon-full__item flex-between">
-                <a href="#" class="header__nav-respon-full__link">cửa hàng</a>
+                <a href="?mod=page&act=shop&page=1" class="header__nav-respon-full__link">cửa hàng</a>
             </li>
             <li class="header__nav-respon-full__item flex-between">
-                <a href="#" class="header__nav-respon-full__link">liên hệ</a>
+                <a href="?mod=page&act=contact" class="header__nav-respon-full__link">liên hệ</a>
             </li>
             <li class="header__nav-respon-full__item flex-between">
-                <a href="#" class="header__nav-respon-full__link">tài khoản</a>
+                <a href="?mod=user&act=general" class="header__nav-respon-full__link">tài khoản</a>
             </li>
         </ul>
         <!-- header respon fullscreen nav end -->
@@ -299,7 +289,7 @@
 
         <!-- site content start -->
         <?php
-            require_once 'v_'.$view_name.'.php';
+        require_once 'v_'.$view_name.'.php';
         ?>
         <!-- site content end -->
 

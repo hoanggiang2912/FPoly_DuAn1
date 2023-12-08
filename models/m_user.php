@@ -124,7 +124,6 @@ function searchUser($inputSearch)
     return pdo_query("SELECT * FROM user WHERE fullname LIKE '%$inputSearch%' OR username LIKE '%$inputSearch%' OR email LIKE '%$inputSearch%' or phone LIKE '%$inputSearch%'");
 }
 
-
 # password
 function get_password($id_user)
 {
@@ -134,6 +133,7 @@ function update_password($new_password, $id_user)
 {
     pdo_execute("UPDATE user SET password = ? WHERE id = ?", $new_password, $id_user);
 }
+
 #order
 
 function get_namePayment($id_payment)
@@ -148,6 +148,7 @@ function get_fullname($id_user)
 {
     return pdo_query_value("SELECT fullname FROM user WHERE id = ?", $id_user);
 }
+
 
 function get_priceShipping($id_shipping)
 {
@@ -164,42 +165,24 @@ function get_id_comments($id_user)
     return pdo_query("SELECT id FROM comment WHERE id_user = ?", $id_user);
 }
 
-function getAllCartByIdUser($id)
-{
-    return pdo_query("SELECT * FROM cart WHERE id_user = ?", $id);
-
-}
-
-function delete_blogComnent_byIduser($id_user)
-{
-    pdo_execute("DELETE FROM blog_comment WHERE id_user = {$id_user}");
-}
-function delete_comments_byIduser($id_user)
-{
-    pdo_execute("DELETE FROM comment WHERE id_user = {$id_user}");
-}
-function delete_Imgcomments($id_comment)
-{
-    pdo_execute("DELETE FROM comment_img WHERE id_comment = {$id_comment}");
-}
-function delete_acccount($id_user)
-{
-    pdo_execute("DELETE FROM user WHERE id = ?", $id_user);
-}
 
 
 function editUserProfile($id, $fullname, $username, $password, $email, $image, $role, $bio, $phone)
 {
     pdo_execute("UPDATE user SET fullname = '$fullname', username = '$username', email = '$email', password = '$password', img = '$image', role = '$role', bio = '$bio', phone = '$phone' WHERE id = " . $id);
 }
-function addUserProfile($fullname, $username, $password, $email, $address, $image, $role, $bio, $phone)
+function addUserProfile($fullname, $username, $password, $email, $image, $role, $bio, $phone)
 {
-    pdo_execute("INSERT INTO user (fullname, username, email, password, address, img, role, bio, phone) VALUES ('$fullname', '$username', '$email', '$password', '$address', '$image', '$role', '$bio', '$phone') ");
+    pdo_execute("INSERT INTO user (fullname, username, email, password, img, role, bio, phone) VALUES ('$fullname', '$username', '$email', '$password', '$image', '$role', '$bio', '$phone') ");
 }
 
 function deleteUser($id)
 {
     pdo_execute("DELETE FROM user WHERE id = {$id}");
+}
+function delete_acccount($id_user)
+{
+    pdo_execute("DELETE FROM user WHERE id = {$id_user}");
 }
 
 

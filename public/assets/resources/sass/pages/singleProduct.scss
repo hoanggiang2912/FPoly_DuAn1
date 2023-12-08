@@ -25,6 +25,76 @@
       padding-block: clamp(1.6rem, 0.6rem + 2.667vw, 3rem);
       padding-inline: clamp(1rem, -9.357rem + 27.619vw, 15.5rem);
     }
+    .comment__panel {
+      .comment__wrapper {
+        .comment__item {
+          background-color: #f7f7f7;
+          border-radius: 30px;
+          .comment__hidden {
+            justify-content: unset !important;
+          }
+          .comment__user {
+            justify-content: space-between;
+            .moreFeatureComment {
+              .ulDadMoreFeatureComment {
+                width: 30px;
+                height: 30px;
+                background-color: $-white;
+                border-radius: 50%;
+                list-style: none;
+                position: relative;
+                .liDadMoreFeatureComment {
+                  cursor: pointer;
+
+                  .ellipsisBtn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                  }
+                  .divMoreFeatureComment {
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    background-color: $-white;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    .ulSonMoreFeatureComment {
+                      .liSonMoreFeatureComment {
+                        padding: 10px 30px;
+                        margin-bottom: 10px;
+                        transition: $trans-bounce;
+                        &:last-child {
+                          margin-bottom: 0;
+                        }
+                        &:hover {
+                          background-color: #ccc;
+                          border-radius: 10px;
+                        }
+                        p,
+                        a {
+                          display: block;
+                          width: 100px;
+                          color: #1d192b;
+                          font-size: 1.6rem;
+                          font-weight: 600;
+                          transition: $trans-bounce;
+                          &:hover {
+                            opacity: 0.6;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -43,19 +113,51 @@
     }
   }
   .comment__wrapper {
-    .comment__item {
-        .user__avt {
-            img {
-                border-radius: 30px;
-            }
+    .poup_item-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      text-align: center;
+      background-color: #f1e5e6;
+      padding: 30px;
+      border-radius: 10px;
+      .poup_item {
+        margin-bottom: 30px !important;
+        .popup_item_delete {
+          padding: 10px 20px;
+          border-radius: 10px;
+          background-color: $light-error;
+          margin-right: 20px;
+          button {
+            color: $-white;
+          }
         }
+        .popup_item_canc {
+          color: $-black;
+          padding: 10px 20px;
+          border-radius: 10px;
+          background-color: $-white;
+        }
+        p {
+          margin-bottom: 20px !important;
+        }
+      }
+    }
+    .comment__item {
+      .user__avt {
+        img {
+          border-radius: 30px;
+        }
+      }
       .comment_media {
         display: flex;
         margin-top: 15px;
         flex-wrap: wrap;
         .comment_media_item {
-            margin: 10px;
-            video,
+          margin: 10px;
+          video,
           img {
             width: 100px;
             height: 100px;
@@ -71,8 +173,8 @@
   flex-wrap: wrap;
   margin-top: 15px;
   .comment_media_item {
-      margin: 10px;
-      video,
+    margin: 10px;
+    video,
     img {
       width: 100px;
       height: 100px;

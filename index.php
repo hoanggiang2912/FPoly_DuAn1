@@ -29,6 +29,9 @@ if (isset($_GET['mod'])) {
         case 'category':
             $ctrl_name = 'category';
             break;
+        default:
+            header('location:index.php?mod=page&act=home');
+        break;
     }
     // controller sẽ là cầu nối nơi điều hướng các trang bên trong nó.
     //VD: v_page_home / "page" là controller và "home" là trang nằm trong controller

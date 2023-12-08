@@ -1,11 +1,11 @@
 <?php
 $idProduct = $_GET['id'];
-$idProduct = $_GET['id'];
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $id_category = $_POST['id_category'];
     $description = $_POST['description'];
     $price = $_POST['price'];
+    $img = $_FILES["file"]["name"];
     $qty = $_POST['qty'];
 
     // Kiểm tra xem người dùng đã chọn file ảnh mới hay chưa
@@ -26,19 +26,17 @@ if (isset($_POST['submit'])) {
             $error['file_size'] = "Chỉ được upload file bé hơn 20MB";
         } else {
             if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
-                $image = $_FILES['file']['name'];
+                $img = $_FILES['file']['name'];
             }
         }
+    } else {
+        // Nếu người dùng không chọn file ảnh mới, giữ nguyên ảnh cũ
+        $img = $productdetail['img'];
     }
 
     // Tiến hành cập nhật sản phẩm
-    $kq = product_checkName($name);
-    if ($kq) {
-        $_SESSION['loi'] = 'Đã có tên sản phẩm này <strong>' . $name . '</strong>';
-    } else {
-        product_edit($idProduct, $name, $id_category, $description, $price, $img, $qty);
-        $_SESSION['thongbao'] = 'Đã Chỉnh sửa thành công <strong>' . $name . '</strong>';
-    }
+    product_edit($idProduct, $name, $id_category, $description, $price, $img, $qty);
+    $_SESSION['thongbao'] = 'Đã Chỉnh sửa thành công <strong>' . $name . '</strong>';
 
     // Tải lại trang cập nhật sản phẩm
     header("Location: ?mod=admin&act=products-detail&id=$idProduct");
@@ -62,29 +60,38 @@ if (isset($_POST['submit'])) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getCmt = getAllComment();
-                    arsort($getCmt);
-                    $getCmt = array_slice($getCmt, 0, 6, true);
-                    foreach ($getCmt as $item) {
-
-                        $getUser = getUserById($item['id_user']);
-                        $getProduct = getProductById($item['id_product']);
+                    if (empty($getCmt)) {
                         ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getCmt);
+                        $getCmt = array_slice($getCmt, 0, 6, true);
+                        foreach ($getCmt as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            $getProduct = getProductById($item['id_product']);
+                            ?>
                     <li>
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
@@ -96,6 +103,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -105,41 +113,50 @@ if (isset($_POST['submit'])) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getBill = getBill();
-                    arsort($getBill);
-                    $getBill = array_slice($getBill, 0, 6, true);
-                    foreach ($getBill as $item) {
-
-                        $getUser = getUserById($item['id_user']);
+                    if (empty($getBill)) {
                         ?>
+                    <li>
+                        <div class="col-12 d-flex">
+                            <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
+                        </div>
+                    </li>
+                    <?php
+                    } else {
+                        arsort($getBill);
+                        $getBill = array_slice($getBill, 0, 6, true);
+                        foreach ($getBill as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            ?>
                     <li>
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
 
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
                                         <?php
-                                            if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
-                                                echo "User ẩn";
+                                                if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
+                                                    echo "User ẩn";
 
-                                            } else {
-                                                echo $getUser[0]['fullname'];
+                                                } else {
+                                                    echo $getUser[0]['fullname'];
 
-                                            }
-                                            ?>
+                                                }
+                                                ?>
                                     </strong><span> vừa mua
                                         một mô hình với mã đơn hàng <strong>
                                             <?php echo $item['id'] ?>
@@ -148,18 +165,18 @@ if (isset($_POST['submit'])) {
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
-
                 </ul>
             </div>
             <div class="imgUserAdmin">
                 <?php
                 $getID = $_SESSION['admin']['id_user'];
                 $getUser = getUserById($getID);
-                if (!empty($getUser['img']) && $getUser != NULL) {
+                if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser['img'] ?>" alt="">
+                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
                 <?php
                 } else {
                     ?>
@@ -168,10 +185,6 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
-
-                    <li><a class="body-small" href="#statisticalChart">Thống kê đơn hàng</a></li>
-                    <li><a class="body-small" href="#recentOrder">Đơn Hàng Gần Đây</a></li>
-                    <li><a class="body-small" href="#overviewDashboard">Tổng quan</a></li>
                     <li><a class="body-small" href="?mod=user&act=logOut-account">Đăng Xuất</a></li>
                 </ul>
             </div>
@@ -272,7 +285,7 @@ if (isset($_POST['submit'])) {
                             <div style="width: 100%;" id="drop-area">
                                 <label class="title-medium">Kéo thả ảnh ở đây</label>
                                 <br>
-                                <input type="file" id="fileInput" name="file">
+                                <input type="file" id="fileInput" name="file" value="<?= $productdetail['img'] ?>">
                             </div>
 
                             <div style="width: 100%;" id="demo" class="demo .box-shadow1">

@@ -30,7 +30,11 @@ function get_addressMainByIdUser($id)
 }
 function get_addressByIdUser($id)
 {
-    return pdo_query("SELECT * FROM address WHERE id_user = {$id} AND is_default = 0");
+    return pdo_query("SELECT * FROM address WHERE id_user = $id AND is_default = 0");
+}
+function getDefaultAddressByIdUser($id)
+{
+    return pdo_query("SELECT * FROM address WHERE id_user = $id AND is_default = 1");
 }
 function check_addressDefault()
 {

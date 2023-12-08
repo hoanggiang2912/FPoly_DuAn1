@@ -18,7 +18,7 @@
                     arsort($getCmt);
                     $getCmt = array_slice($getCmt, 0, 6, true);
                     foreach ($getCmt as $item) {
-  
+
                         $getUser = getUserById($item['id_user']);
                         $getProduct = getProductById($item['id_product']);
                         ?>
@@ -26,18 +26,18 @@
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
@@ -49,6 +49,7 @@
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -61,36 +62,36 @@
                     arsort($getBill);
                     $getBill = array_slice($getBill, 0, 6, true);
                     foreach ($getBill as $item) {
-  
+
                         $getUser = getUserById($item['id_user']);
                         ?>
                     <li>
                         <div class="col-12 d-flex">
                             <div class="col-2">
                                 <?php
-                                    if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
 
                                 <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                 <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
                                     alt="">
 
                                 <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
                             </div>
                             <div class="col-10">
                                 <p class="notifiAdminText body-small"><strong>
                                         <?php
                                             if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
                                                 echo "User ẩn";
-  
+
                                             } else {
                                                 echo $getUser[0]['fullname'];
-  
+
                                             }
                                             ?>
                                     </strong><span> vừa mua
@@ -101,18 +102,18 @@
                         </div>
                     </li>
                     <?php
+                        }
                     }
                     ?>
-
                 </ul>
             </div>
             <div class="imgUserAdmin">
                 <?php
                 $getID = $_SESSION['admin']['id_user'];
                 $getUser = getUserById($getID);
-                if (!empty($getUser['img']) && $getUser != NULL) {
+                if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser['img'] ?>" alt="">
+                <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
                 <?php
                 } else {
                     ?>
@@ -121,10 +122,6 @@
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
-
-                    <li><a class="body-small" href="#statisticalChart">Thống kê đơn hàng</a></li>
-                    <li><a class="body-small" href="#recentOrder">Đơn Hàng Gần Đây</a></li>
-                    <li><a class="body-small" href="#overviewDashboard">Tổng quan</a></li>
                     <li><a class="body-small" href="?mod=user&act=logOut-account">Đăng Xuất</a></li>
                 </ul>
             </div>
@@ -287,7 +284,7 @@
                         <?= $getUser[0]['fullname'] ?>
                     </td>
                     <td>
-                        <?= $getPayment[0]['name'] ?>
+                        <?= $getPayment['name'] ?>
                     </td>
                     <td>
                         <?= $value['create_date'] ?>

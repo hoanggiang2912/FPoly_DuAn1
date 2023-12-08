@@ -1,6 +1,13 @@
 body {
   &.dark {
     #mainAdmin {
+      .manageCoupon_itemsText {
+        .col-12 {
+          span {
+            color: black !important;
+          }
+        }
+      }
       #paging {
         .pagination__item {
           a {
@@ -41,6 +48,9 @@ body {
         color: $-white !important;
       }
       .localDashboard {
+        .client-edit {
+          color: black !important;
+        }
         .h2_dashboard {
           color: $-white !important;
         }

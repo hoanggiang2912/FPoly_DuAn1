@@ -23,6 +23,7 @@
   td {
     font-size: 14px;
     font-weight: 600;
+    word-wrap: break-word;
   }
 
   th,
@@ -122,11 +123,10 @@
       background: #e2e3e5;
       border-color: #d6d8db;
       td {
-        color :#383d41;
+        color: #383d41;
       }
     }
   }
-  
 }
 #example1_filter {
   display: none !important;
@@ -136,13 +136,12 @@
     #example1_previous {
       .page-link {
         font-size: 16px;
-        
       }
     }
     .paginate_button {
-.page-link {
-  font-size: 16px;
-}
+      .page-link {
+        font-size: 16px;
+      }
     }
   }
 }

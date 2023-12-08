@@ -1,5 +1,5 @@
 <?php
-if(@$_POST['act_search']) {
+if (@$_POST['act_search']) {
     $inputSearch = $_POST['act_search'];
     $addressList = searchAddress($inputSearch);
 } else {
@@ -14,7 +14,7 @@ if(@$_POST['act_search']) {
         <div class="search-box">
             <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
                 <i class="far fa-search"></i>
-                <input name="act_search" type="text" placeholder="Tìm kiếm...">
+                <input name="act_search" type="text" placeholder="Tìm kiếm..." disabled="disabled">
             </form>
         </div>
         <div class="info-user">
@@ -23,40 +23,50 @@ if(@$_POST['act_search']) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getCmt = getAllComment();
-                    arsort($getCmt);
-                    $getCmt = array_slice($getCmt, 0, 6, true);
-                    foreach($getCmt as $item) {
-
-                        $getUser = getUserById($item['id_user']);
-                        $getProduct = getProductById($item['id_product']);
+                    if (empty($getCmt)) {
                         ?>
                         <li>
                             <div class="col-12 d-flex">
-                                <div class="col-2">
-                                    <?php
-                                    if($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
-
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                            alt="">
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <div class="col-10">
-                                    <p class="notifiAdminText body-small"><strong>
-                                            <?php echo $getUser[0]['fullname'] ?>
-                                        </strong><span> đã bình luận ở sản phẩm <strong><a href="">
-                                                    <?php echo $getProduct['name'] ?>
-                                                </a></strong></span></p>
-                                </div>
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
                             </div>
                         </li>
                         <?php
+                    } else {
+                        arsort($getCmt);
+                        $getCmt = array_slice($getCmt, 0, 6, true);
+                        foreach ($getCmt as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            $getProduct = getProductById($item['id_product']);
+                            ?>
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php echo $getUser[0]['fullname'] ?>
+                                            </strong><span> đã bình luận ở sản phẩm <strong><a href="">
+                                                        <?php echo $getProduct['name'] ?>
+                                                    </a></strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -66,61 +76,70 @@ if(@$_POST['act_search']) {
                 <ul class="showFeatureAdminHeader box-shadow1">
                     <?php
                     $getBill = getBill();
-                    arsort($getBill);
-                    $getBill = array_slice($getBill, 0, 6, true);
-                    foreach($getBill as $item) {
-
-                        $getUser = getUserById($item['id_user']);
+                    if (empty($getBill)) {
                         ?>
                         <li>
                             <div class="col-12 d-flex">
-                                <div class="col-2">
-                                    <?php
-                                    if($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
-
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
-                                            alt="">
-
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <div class="col-10">
-                                    <p class="notifiAdminText body-small"><strong>
-                                            <?php
-                                            if($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
-                                                echo "User ẩn";
-
-                                            } else {
-                                                echo $getUser[0]['fullname'];
-
-                                            }
-                                            ?>
-                                        </strong><span> vừa mua
-                                            một mô hình với mã đơn hàng <strong>
-                                                <?php echo $item['id'] ?>
-                                            </strong></span></p>
-                                </div>
+                                <p class="title-medium text-center">Hiện đang không có dữ liệu nào</p>
                             </div>
                         </li>
                         <?php
+                    } else {
+                        arsort($getBill);
+                        $getBill = array_slice($getBill, 0, 6, true);
+                        foreach ($getBill as $item) {
+
+                            $getUser = getUserById($item['id_user']);
+                            ?>
+                            <li>
+                                <div class="col-12 d-flex">
+                                    <div class="col-2">
+                                        <?php
+                                        if ($getUser[0]['img'] == NULL || empty($getUser[0]['img'])) {
+                                            ?>
+                                            <img class="notifiAdminImg" src="./upload/users/avatar-none.png" alt="">
+
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <img class="notifiAdminImg" src="./upload/users/<?php echo $getUser[0]['img'] ?>"
+                                                alt="">
+
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="notifiAdminText body-small"><strong>
+                                                <?php
+                                                if ($getUser[0]['fullname'] == NULL && empty($getUser[0]['fullname'])) {
+                                                    echo "User ẩn";
+
+                                                } else {
+                                                    echo $getUser[0]['fullname'];
+
+                                                }
+                                                ?>
+                                            </strong><span> vừa mua
+                                                một mô hình với mã đơn hàng <strong>
+                                                    <?php echo $item['id'] ?>
+                                                </strong></span></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
+                        }
                     }
                     ?>
-
                 </ul>
             </div>
             <div class="imgUserAdmin">
                 <?php
                 $getID = $_SESSION['admin']['id_user'];
                 $getUser = getUserById($getID);
-                if(!empty($getUser['img']) && $getUser != NULL) {
+                if (!empty($getUser['img']) || $getUser != NULL) {
                     ?>
-                    <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser['img'] ?>" alt="">
+                    <img style="" class="btnShowFeature" src="./upload/users/<?php echo $getUser[0]['img'] ?>" alt="">
                     <?php
                 } else {
                     ?>
@@ -129,10 +148,6 @@ if(@$_POST['act_search']) {
                 }
                 ?>
                 <ul class="showFeatureAdminHeader box-shadow1">
-
-                    <li><a class="body-small" href="#statisticalChart">Thống kê đơn hàng</a></li>
-                    <li><a class="body-small" href="#recentOrder">Đơn Hàng Gần Đây</a></li>
-                    <li><a class="body-small" href="#overviewDashboard">Tổng quan</a></li>
                     <li><a class="body-small" href="?mod=user&act=logOut-account">Đăng Xuất</a></li>
                 </ul>
             </div>
@@ -189,7 +204,7 @@ if(@$_POST['act_search']) {
             <tbody>
                 <!-- Thêm các hàng dữ liệu vào đây -->
                 <?php
-                foreach($addressList as $item) {
+                foreach ($addressList as $item) {
                     $userInfo = getUserById($item['id_user']);
                     ?>
                     <tr>

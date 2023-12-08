@@ -16,11 +16,11 @@
                 delete_bill_fromCart($id_user);
                 delete_bill($id_user);
                 delete_address_byIduser($id_user);
-                delete_blogComnent_byIduser($id_user);
+                delete_blogComment_byIduser($id_user);
                 foreach (get_id_comments($id_user) as $key) {
                     extract($key);
-                    $id_comment = $id;
-                    delete_Imgcomments($id_comment);
+                    $id_Cmt = $id;
+                    delImgByIdCmt($id_Cmt);
                 }
                 delete_comments_byIduser($id_user);
                 delete_acccount($id_user);
