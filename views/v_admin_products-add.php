@@ -63,9 +63,9 @@ if (isset($_POST['submit'])) {
     <div class="top">
         <i class="fas fa-angle-left sidebar-toggle"></i>
         <div class="search-box">
-            <form style="width: 100%;display:flex; justify-content: center;" action="" method="post">
+            <form style="width: 100%;display:flex; justify-content: center;" action="?mod=admin&act=products-search" method="post">
                 <i class="far fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm..." disabled="disabled">
+                <input type="text" placeholder="Tìm kiếm..." disabled="disabled" name="keyword">
             </form>
         </div>
         <div class="info-user">
@@ -205,27 +205,27 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     <!----======== End Header DashBoard ======== -->
-
+    <div class="flex-column p30 g30" style="align-self: stretch; align-items: flex-start;">
+        <div class="text">
+            <h1 class="label-large-prominent" style="font-size: 24px;
+              line-height: 32px;">Thêm Sản Phẩm</h1>
+        </div>
+        <!--DateTimelocal-->
+        <div class="flex-between width-full" style="gap: 8px;
+            align-items: center;">
+            <div class="flex g8">
+                <span class="label-large">Admin /</span><a href="?mod=admin&act=products-add" class="label-large"
+                    style="text-decoration: none;">Thêm Sản Phẩm</a>
+            </div>
+            <!-- <div class="flex-center g8">
+            <span><i class="fa-solid fa-calendar-days"></i></span>
+            <input class="label-large-prominent" type="datetime-local" style="color: #625B71; border: none; font-size: 16px;
+                ">
+          </div> -->
+        </div>
+    </div>
     <!----======== Body DashBoard ======== -->
     <div class="containerAdmin_order-detail p30">
-        <div class="localDashboard">
-            <div class="col-12 d-flex">
-                <div class="col-6">
-                    <div class="col-12">
-                        <h2>Thêm Sản Phẩm</h2>
-                    </div>
-                    <div class="col-12">
-                        <span class="label-large">Admin /</span><a href="?mod=admin&act=products&page=1"
-                            class="label-large" style="text-decoration: none;"> Sản Phẩm</a> / <a href="#!"
-                            class="label-large" style="text-decoration: none;"> Thêm Sản Phẩm</a>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="sliderDashboard_order-add-create sliderDashboard_order-detail rounded-4">
 
             <?php if (isset($_SESSION['thongbao'])): ?>
@@ -307,18 +307,6 @@ if (isset($_POST['submit'])) {
                                 <br>
                                 <input type="file" id="fileInput" name="file">
                             </div>
-
-                            <div style="width: 100%;" id="demo" class="demo .box-shadow1">
-
-                            </div>
-                            <div style="width: 100%;" id="deleteButtonImg" class="button_delete_img row">
-                                <div class="col-8"></div>
-                                <div class="col-4 d-flex justify-content-between g12">
-                                    <button type="button " class="btn p12"
-                                        style="background-color:#6750a4; color:#fff;">Cập nhật</button>
-                                    <button type="button" id="deleteButtonAll p12" class="btn btn-danger">Xóa</button>
-                                    <button type="button" class="btn box-shadow1 p12">Hủy</button>
-                                </div>
                             </div>
                         </div>
 
