@@ -5,9 +5,6 @@ $total = 0;
 $totalFormated = 0;
 $subTotal = 0;
 
-// if (isset($_SESSION['cart'])) {
-//     print_r($_SESSION['cart']);
-// }
 
 foreach ($cart as $item) {
     extract($item);
@@ -127,6 +124,11 @@ if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin'])) {
                 <a href="?mod=user&act=address" class="primary-text">Bạn chưa có thông tin đặt hàng mặc định! Thêm thông tin tại đây</a>
             HTML;
     }
+} else {
+    $updateAddressNoti =
+        <<<HTML
+            <a href="?mod=user&act=address" class="primary-text">Bạn chưa có thông tin mua hàng! Đăng nhập để cập nhật ngay (Bạn vẫn có thể mua hàng kể cả khi không đăng nhập)</a>
+        HTML;
 }
 ?>
 
@@ -239,7 +241,7 @@ if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin'])) {
                 </div>
                 <!-- checkout form end -->
                 <!-- checkout: shipping method and payment method start -->
-                <div class="checkout__main--addon">
+                <div class="checkout__main--addon mt20">
                     <div class="shipping-method__wrapper p20 rounded-8 box-shadow1">
                         <div class="title-medium fw-smb">Phương thức vận chuyển <span class="error60">*</span></div>
                         <div class="shipping-methods flex-column g12 mt20">

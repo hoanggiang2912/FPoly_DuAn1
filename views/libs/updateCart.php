@@ -12,32 +12,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && isset($_
 
     if ($action === "increase") {
         // Increase quantity in session cart
-        $_SESSION["cart"][$product_id]["qty"]++;
-
-        // Update quantity in database cart table
         if (isset($_SESSION['userLogin'])) {
             $idUser = $_SESSION['userLogin']['id_user'];
-            updateQuantityInDatabase($product_id, $_SESSION["cart"][$product_id]["qty"], $idUser);
+            $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"] ++;
+        } else {
+            $_SESSION["cart"][$product_id]["qty"]++;
         }
     } elseif ($action === "decrease") {
         // Decrease quantity in session cart, but ensure it doesn't go below 0
-        if ($_SESSION["cart"][$product_id]["qty"] > 0) {
-            $_SESSION["cart"][$product_id]["qty"]--;
-
-            // Update quantity in database cart table
-            if (isset($_SESSION['userLogin'])) {
-                $idUser = $_SESSION['userLogin']['id_user'];
-                updateQuantityInDatabase($product_id, $_SESSION["cart"][$product_id]["qty"], $idUser);
+        if (isset($_SESSION['userLogin'])) {
+            $idUser = $_SESSION['userLogin']['id_user'];
+            if ($_SESSION["cart"][$idUser]['cart'][$product_id]["qty"] > 0) {
+                $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"]--;
+            } else {
+                $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"] = 1;
             }
         } else {
-            $_SESSION["cart"][$product_id]["qty"] = 1;
+            if ($_SESSION["cart"][$product_id]["qty"] > 0) {
+                $_SESSION["cart"][$product_id]["qty"]--;
+            } else {
+                $_SESSION["cart"][$product_id]["qty"] = 1;
+            }
         }
     }
 
     // Return updated quantity
+    if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin']) && !empty($_SESSION['userLogin'])) {
+        $productQty = $_SESSION["cart"][$idUser]['cart'][$product_id]["qty"];
+    }  else {
+        $productQty = $_SESSION["cart"][$product_id]["qty"];
+    }
     $response = [
         "success" => true,
-        "quantity" => $_SESSION["cart"][$product_id]["qty"],
+        "quantity" => $productQty
     ];
 } else {
     $response = ["success" => false];
