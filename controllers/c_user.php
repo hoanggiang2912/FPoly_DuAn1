@@ -107,21 +107,11 @@ if (isset($_GET['act'])) {
                 $id_order = ($_GET['id']);
                 $order = get_order($id_order);
                 $product_order = get_product_order($id_order);
-
             }
             break;
 
         case 'logOut-account':
             include_once 'models/m_user.php';
-            // if(isset($_GET['id-account'])) {
-            //     $id_user = $_GET['id-account'];
-            //     extract(checkAccount($id_user));
-            // } else {
-            //     if (isset($_SESSION['userLogin'])) {
-            //         $id_user = $_SESSION['userLogin']['id_user'];
-            //     }
-            // }
-
             unset($_SESSION['userLogin']);
             unset($_SESSION['admin']);
             header('location: ?mod=page&act=login');
