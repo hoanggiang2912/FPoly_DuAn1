@@ -722,7 +722,7 @@ if (isset($_POST['editComment'])) {
                                         foreach ($productImgCmt as $result) {
                                             ?>
                             <div class="comment_media_item">
-                                <img src="/upload/users/<?php echo $result['src'] ?>" alt="">
+                                <img src="./upload/users/<?php echo $result['src'] ?>" alt="">
                             </div>
                             <?php
                                         }
