@@ -16,11 +16,10 @@
     z-index: 10000000;
 }
 .list.active  ion-icon{
-    color: $-white!important;
+    color: $light-primary !important;
 }
 .navigation ul {
     display: flex;
-    width: 350px;
 }
 
 .navigation ul li {
@@ -53,23 +52,23 @@
 }
 
 .navigation ul li.active a .icon {
-    transform: translateY(-32px);
+    // transform: translateY(-32px);
 }
 
 .navigation ul li a .text {
-    position: absolute;
+    // position: absolute;
     color: var(--clr);
     font-weight: 400;
     font-size: 0.75em;
     letter-spacing: 0.05em;
     transition: 0.5s;
-    opacity: 0;
-    transform: translateY(20px);
+    // opacity: 0;
+    // transform: translateY(20px);
 }
 
 .navigation ul li.active a .text {
-    opacity: 1;
-    transform: translateY(10px);
+    // opacity: 1;
+    // transform: translateY(10px);
 }
 
 .indicator {

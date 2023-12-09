@@ -232,13 +232,13 @@ const app = {
         const addCouponeBtn = document.querySelector('add-coupon-btn');
 
         /** mobile indicator */
-        const list = document.querySelectorAll(".list");
+        // const list = document.querySelectorAll(".list");
 
-        function activeLink() {
-            list.forEach((item) => item.classList.remove("active"));
-            this.classList.add("active");
-        }
-        list.forEach((item) => item.addEventListener("click", activeLink));
+        // function activeLink() {
+        //     list.forEach((item) => item.classList.remove("active"));
+        //     this.classList.add("active");
+        // }
+        // list.forEach((item) => item.addEventListener("click", activeLink));
 
 
         // || quantity input start

@@ -2,6 +2,51 @@
     session_start();
     ob_start();
 
+    //Import PHPMailer classes into the global namespace
+    //These must be at the top of your script, not inside a function
+    // use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\Exception;
+
+    // //required files
+    // require './phpmailer/src/Exception.php';
+    // require './phpmailer/src/PHPMailer.php';
+    // require './phpmailer/src/SMTP.php';
+
+    // function createMail () {
+    //     $mail = new PHPMailer(true);
+
+    //     //Server settings
+    //     $mail->isSMTP();                              //Send using SMTP
+    //     $mail->Host = 'smtp.gmail.com';       //Set the SMTP server to send through
+    //     $mail->SMTPAuth = true;             //Enable SMTP authentication
+    //     $mail->Username = 'hohoanggiang@gmail.com';   //SMTP write your email
+    //     $mail->Password = 'qkceernidfsjnscl';      //SMTP password
+    //     $mail->SMTPSecure = 'ssl';            //Enable implicit SSL encryption
+    //     $mail->Port = 465;
+
+    //     //Recipients
+    //     $mail->setFrom($_POST["email"], $_POST["name"]); // Sender Email and name
+    //     $mail->addAddress('example@gmail.com');     //Add a recipient email  
+    //     $mail->addReplyTo($_POST["email"], $_POST["name"]); // reply to sender email
+
+    //     //Content
+    //     $mail->isHTML(true);               //Set email format to HTML
+    //     $mail->Subject = $_POST["subject"];   // email subject headings
+    //     $mail->Body =
+    //         <<<HTML
+
+    //         HTML; //email message
+
+    //     // Success sent message alert
+    //     $mail->send();
+    //     echo
+    //         " 
+    //         <script> 
+    //         alert('Message was sent successfully!');
+    //         document.location.href = 'index.php';
+    //         </script>
+    //     ";
+    // }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         /** bill infomation */
@@ -28,7 +73,7 @@
                 $name_recipient = getUserInfo($id_user)[0]['username'];
             }
 
-            $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total);
+            $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total, 1);
             $_SESSION['idBill'] = $idBill;
             
             /** update số lượng của sản phẩm */
@@ -47,6 +92,7 @@
             if (isset($_SESSION['cart'][$id_user])) {
                 unset($_SESSION['cart'][$id_user]);
             }
+
             header("Location: ?mod=cart&act=confirm");
             exit();
         } else {
@@ -57,7 +103,7 @@
             /** tạo đơn hàng -> trả về idBill */
             $cart = $_SESSION['cart']['guest'];
             $total = totalBill($cart);
-            $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total);
+            $idBill = insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total, 1);
             $_SESSION['idBill'] = $idBill;
 
             /** lấy idBill insert sản phẩm trong giỏ hàng vào db */
@@ -167,10 +213,10 @@ function totalBill($cart)
     return $total;
 }
 
-function insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total)
+function insertBill($id_user, $id_shipping, $id_payment, $email_user, $phone_user, $address_user, $address_detail_user, $name_recipient, $phone_recipient, $address_recipient, $address_detail_recipient, $total, $status)
 {
-    $sql = "INSERT INTO bill (id_user, id_shipping, id_payment, email_user, phone_user, address_user, address_detail_user, name_recipient, phone_recipient, address_recipient, address_detail_recipient  , total) 
-                VALUES ('$id_user', '$id_shipping', '$id_payment', '$email_user', '$phone_user', '$address_user', '$address_detail_user', '$name_recipient', '$phone_recipient', '$address_recipient', '$address_detail_recipient', '$total')";
+    $sql = "INSERT INTO bill (id_user, id_shipping, id_payment, email_user, phone_user, address_user, address_detail_user, name_recipient, phone_recipient, address_recipient, address_detail_recipient  , total, status) 
+                VALUES ('$id_user', '$id_shipping', '$id_payment', '$email_user', '$phone_user', '$address_user', '$address_detail_user', '$name_recipient', '$phone_recipient', '$address_recipient', '$address_detail_recipient', '$total', '1')";
     $billId = pdo_execute($sql);
     return $billId;
 }

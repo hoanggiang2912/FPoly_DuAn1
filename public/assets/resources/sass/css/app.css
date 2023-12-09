@@ -543,23 +543,23 @@ a {
   justify-content: space-around;
   align-items: center;
   border-radius: 10px;
+  z-index: 10000000;
 }
 
 .list.active ion-icon {
-  color: #ffffff !important;
+  color: #6750a4 !important;
 }
 
 .navigation ul {
   display: flex;
-  width: 350px;
 }
 
 .navigation ul li {
   position: relative;
   list-style: none;
-  width: 70px;
-  height: 70px;
-  z-index: 1;
+  width: 55px;
+  height: 55px;
+  z-index: 1000000;
 }
 
 .navigation ul li a {
@@ -583,24 +583,12 @@ a {
   color: var(--clr);
 }
 
-.navigation ul li.active a .icon {
-  transform: translateY(-32px);
-}
-
 .navigation ul li a .text {
-  position: absolute;
   color: var(--clr);
   font-weight: 400;
   font-size: 0.75em;
   letter-spacing: 0.05em;
   transition: 0.5s;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.navigation ul li.active a .text {
-  opacity: 1;
-  transform: translateY(10px);
 }
 
 .indicator {

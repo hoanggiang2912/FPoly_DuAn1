@@ -946,7 +946,7 @@ foreach ($categories as $item) {
 
 <!-- mobile bottom navbar start -->
 <div class="navigation mobile box-shadow5">
-    <ul style="display: flex !important;">
+    <ul style="ưidth: 100%;display: flex !important; justify-content: space-between">
         <li class="list active">
             <a href="?mod=page&act=home">
                 <span class="icon">
@@ -983,7 +983,6 @@ foreach ($categories as $item) {
                             <li class="list" style="margin-block: auto; display: flex">
                                 <a href="?mod=page&act=home">
                                     <img src="./public/assets/images/logo.png" style="width: 3rem; height: 3rem;">
-                                    <span class="text">Legous</span>
                                 </a>
                             </li>
                     HTML;
@@ -1006,7 +1005,7 @@ foreach ($categories as $item) {
                 <span class="text">Settings</span>
             </a>
         </li>
-        <div class="indicator"></div>
+        <!-- <div class="indicator"></div> -->
     </ul>
 </div>
 <!-- mobile bottom navbar end -->
