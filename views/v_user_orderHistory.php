@@ -36,7 +36,7 @@
             $name_payment = get_namePayment($id_payment);
             $tbody_html .=' <tr>
                     <td class="label-large-prominent"><span># '.$id.'</span></td>
-                    <td class="label-large-prominent"><span>'.$name_recipient.'</span></td>
+                    <td class="label-large-prominent"><span>'.$username.'</span></td>
                     <td class="label-large-prominent"><span></span></td>
                     <td class="label-large-prominent"><span>'.$create_date.'</span></td>
                     <td class="label-large-prominent delivered"><span>'.$getHTML.'</span></td>
