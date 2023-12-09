@@ -154,6 +154,17 @@
                 <?php
                 foreach ($order as $item) {
                     extract($item);
+                    if(empty($email_recipient) || $phone_recipient = 1 || $address_recipient = 1 || $address_detail_recipient = 1 ) {
+                        $fullname_order = $name_recipient;
+                        $email_order = $email_user;
+                        $phone_order = $phone_user;
+                        $address_ship = $address_detail_user;
+                    }else {
+                        $fullname_order = $name_recipient;
+                        $email_order = $email_recipient;
+                        $phone_order = $phone_recipient;
+                        $address_ship = $address_detail_recipient;
+                    }
                     $name_payment = get_namePayment($id_payment);
                     $name_shipping = get_nameShipping($id_shipping);
                     $fullname = get_fullname($id_user);
@@ -185,9 +196,9 @@
                                     <i class="fa-regular fa-user"></i>
                                     <div class="box-content content flex-column  g8">
                                         <h3>Khách hàng</h3>
-                                        <p style="font-size: 1.5rem";>Họ và tên:  ' . $fullname . '</p>
-                                        <p>Email: ' . $email_recipient . '</p>
-                                        <p>Điện thoại: ' . $phone_recipient . '</p>
+                                        <p style="font-size: 1.5rem";>Họ và tên:  ' . $fullname_order . '</p>
+                                        <p>Email: ' . $email_order . '</p>
+                                        <p>Điện thoại: ' . $phone_order . '</p>
                                         
                                     </div>
                                 </div>
@@ -204,7 +215,7 @@
                                     <i class="fa-solid fa-wallet"></i>
                                     <div class="box-content content flex-column  g8">
                                         <h3>Giao hàng tới</h3>
-                                        <p>Địa chỉ: ' . $address_recipient . ' </p>
+                                        <p>Địa chỉ: ' . $address_ship . ' </p>
                                         
                                     </div>
                                 </div>

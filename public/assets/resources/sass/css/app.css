@@ -1706,6 +1706,7 @@ body.dark #mainAdmin .localDashboard .aHref1 {
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain {
   background-color: #1c2339 !important;
 }
+body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain p,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain h5,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain h6,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain .fa-ellipsis-v,
