@@ -154,8 +154,8 @@
                 <?php
                 foreach ($order as $item) {
                     extract($item);
-                    if(empty($email_recipient) || $phone_recipient = 1 || $address_recipient = 1 || $address_detail_recipient = 1 ) {
-                        $fullname_order = $name_recipient;
+                    if($phone_recipient == 1 || $address_recipient == 1 || $address_detail_recipient == 1 ) {
+                        $fullname_order = $username;
                         $email_order = $email_user;
                         $phone_order = $phone_user;
                         $address_ship = $address_detail_user;
