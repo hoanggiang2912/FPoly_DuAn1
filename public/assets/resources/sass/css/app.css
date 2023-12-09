@@ -543,6 +543,7 @@ a {
   justify-content: space-around;
   align-items: center;
   border-radius: 10px;
+  z-index: 10000000;
 }
 
 .list.active ion-icon {
@@ -557,9 +558,9 @@ a {
 .navigation ul li {
   position: relative;
   list-style: none;
-  width: 70px;
-  height: 70px;
-  z-index: 1;
+  width: 55px;
+  height: 55px;
+  z-index: 1000000;
 }
 
 .navigation ul li a {
@@ -1718,6 +1719,7 @@ body.dark #mainAdmin .localDashboard .aHref1 {
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain {
   background-color: #1c2339 !important;
 }
+body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain p,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain h5,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain h6,
 body.dark #mainAdmin .dashboard .containerAdmin .owl-carousel .slider_contain .fa-ellipsis-v,
