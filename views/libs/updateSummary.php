@@ -18,9 +18,9 @@ $tax = 0;
 $cart = [];
 if (isset($_SESSION['userLogin']) && is_array($_SESSION['userLogin'])) {
     extract($_SESSION['userLogin']);
-    $cart = getCartByUserId($id_user);
-} else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    $cart = $_SESSION['cart'];
+    $cart = $_session['cart'][$id_user]['cart'];
+} else {
+    $cart = $_SESSION['cart']['guest'];
 }
 foreach ($cart as $item) {
     extract($item);
